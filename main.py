@@ -1,3 +1,6 @@
+from display import show_screen_and_wait
+
+
 def main():
     show_intro()
     player = create_character()
@@ -5,11 +8,11 @@ def main():
 
 
 def show_intro():
-    print("Welcome to Rogalik!")
+    show_screen_and_wait("Welcome to Rogalik!")
 
 
 def create_character():
-    print("=== Character creation ===")
+    show_screen_and_wait("=== Character creation ===")
     player = {
         "name": "Eisenheim"
     }
@@ -18,7 +21,7 @@ def create_character():
 
 
 def start_game(character):
-    print("Let's play, {name}!".format(**character))
+    show_screen_and_wait("Let's play, {name}!".format(**character))
 
 
 if __name__ == "__main__":
