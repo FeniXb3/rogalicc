@@ -1,3 +1,4 @@
+from data_loading import load_level
 from display import show_screen_and_wait, show_2d_table
 from player_input import getch
 
@@ -29,19 +30,6 @@ def create_character():
 
 def show_level(level):
     show_2d_table(level)
-
-
-def load_level():
-    return [
-        ['#','#','#','#','#','#','#','#','#','#','#'],
-        ['#','.','.','.','.','.','.','.','.','.','#'],
-        ['#','.','.','.','.','.','.','.','.','.','#'],
-        ['#','.','.','.','.','.','.','.','.','.','#'],
-        ['#','.','.','.','.','.','.','.','.','.','#'],
-        ['#','.','.','.','.','.','.','.','.','.','#'],
-        ['#','.','.','.','.','.','.','.','.','.','#'],
-        ['#','#','#','#','#','#','#','#','#','#','#']
-    ]
 
 
 def get_sign_for(entity_type):
