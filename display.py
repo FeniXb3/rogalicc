@@ -17,3 +17,11 @@ def show_screen(content):
 def show_screen_and_wait(content):
     show_screen(content)
     wait()
+
+
+def show_2d_table(table):
+    clear_screen()
+    for row in table:
+        for cell in row:
+            print(cell, end='')
+        print()

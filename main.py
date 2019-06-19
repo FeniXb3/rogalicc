@@ -1,4 +1,4 @@
-from display import show_screen_and_wait
+from display import show_screen_and_wait, show_2d_table
 
 
 def main():
@@ -20,8 +20,28 @@ def create_character():
     return player
 
 
+def show_level(level):
+    show_2d_table(level)
+
+
+def load_level():
+    return [
+        ['#','#','#','#','#','#','#','#','#','#','#'],
+        ['#','.','.','.','.','.','.','.','.','.','#'],
+        ['#','.','.','.','.','.','.','.','.','.','#'],
+        ['#','.','.','.','.','.','.','.','.','.','#'],
+        ['#','.','.','.','.','.','.','.','.','.','#'],
+        ['#','.','.','.','.','.','.','.','.','.','#'],
+        ['#','.','.','.','.','.','.','.','.','.','#'],
+        ['#','#','#','#','#','#','#','#','#','#','#']
+    ]
+
+
 def start_game(character):
     show_screen_and_wait("Let's play, {name}!".format(**character))
+
+    level = load_level()
+    show_level(level)
 
 
 if __name__ == "__main__":
