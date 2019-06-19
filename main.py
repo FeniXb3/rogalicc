@@ -14,7 +14,12 @@ def show_intro():
 def create_character():
     show_screen_and_wait("=== Character creation ===")
     player = {
-        "name": "Eisenheim"
+        "name": "Eisenheim",
+        "type": "player",
+        "position": {
+            'x': 1,
+            'y': 3
+        }
     }
 
     return player
@@ -37,10 +42,28 @@ def load_level():
     ]
 
 
+def get_sign_for(entity_type):
+    signs = {
+        "player": "@"
+    }
+
+    return signs[entity_type]
+
+
+def place_player(character, level):
+    x, y = character["position"].values()
+    entity_type = character["type"]
+
+    level[y][x] = get_sign_for(entity_type)
+
+
 def start_game(character):
     show_screen_and_wait("Let's play, {name}!".format(**character))
 
     level = load_level()
+
+    place_player(character, level)
+
     show_level(level)
 
 
