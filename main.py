@@ -1,4 +1,4 @@
-from data_loading import load_level
+from data_loading import load_level, setup_directions
 from display import show_screen_and_wait, show_2d_table
 from player_input import getch
 
@@ -55,29 +55,6 @@ def place_player(character, level):
 def leave_game():
     show_screen_and_wait("Goodbye, hero!")
     quit(0)
-
-
-def setup_directions():
-    directions = {
-        "w": {
-            "x": 0,
-            "y": -1
-        },
-        "s": {
-            "x": 0,
-            "y": 1
-        },
-        "a": {
-            "x": -1,
-            "y": 0
-        },
-        "d": {
-            "x": 1,
-            "y": 0
-        },
-    }
-
-    return directions
 
 
 def move(character, direction):
