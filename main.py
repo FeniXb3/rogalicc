@@ -19,7 +19,8 @@ def create_character():
         "position": {
             'x': 1,
             'y': 3
-        }
+        },
+        "previous_position": {}
     }
 
     return player
@@ -44,7 +45,8 @@ def load_level():
 
 def get_sign_for(entity_type):
     signs = {
-        "player": "@"
+        "player": "@",
+        "empty": "."
     }
 
     return signs[entity_type]
@@ -55,6 +57,10 @@ def place_player(character, level):
     entity_type = character["type"]
 
     level[y][x] = get_sign_for(entity_type)
+
+    if character["previous_position"]:
+        old_x, old_y = character["previous_position"].values()
+        level[old_y][old_x] = get_sign_for("empty")
 
 
 def leave_game():
@@ -74,10 +80,40 @@ def getch():
     return ch
 
 
+def setup_directions():
+    directions = {
+        "w": {
+            "x": 0,
+            "y": -1
+        },
+        "s": {
+            "x": 0,
+            "y": 1
+        },
+        "a": {
+            "x": -1,
+            "y": 0
+        },
+        "d": {
+            "x": 1,
+            "y": 0
+        },
+    }
+
+    return directions
+
+
+def move(character, direction):
+    for coord_key in direction:
+        character["previous_position"][coord_key] = character["position"][coord_key]
+        character["position"][coord_key] += direction[coord_key]
+
+
 def start_game(character):
     show_screen_and_wait("Let's play, {name}!".format(**character))
 
     level = load_level()
+    directions = setup_directions()
 
     while True:
         place_player(character, level)
@@ -85,7 +121,10 @@ def start_game(character):
 
         key = getch()
 
-        if key == "q":
+        if key in directions:
+            direction = directions[key]
+            move(character, direction)
+        elif key == "q":
             leave_game()
 
 
