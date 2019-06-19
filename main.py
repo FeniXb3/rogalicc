@@ -1,4 +1,5 @@
 from display import show_screen_and_wait, show_2d_table
+from player_input import getch
 
 
 def main():
@@ -66,18 +67,6 @@ def place_player(character, level):
 def leave_game():
     show_screen_and_wait("Goodbye, hero!")
     quit(0)
-
-
-def getch():
-    import sys, tty, termios
-    fd = sys.stdin.fileno()
-    old_settings = termios.tcgetattr(fd)
-    try:
-        tty.setraw(sys.stdin.fileno())
-        ch = sys.stdin.read(1)
-    finally:
-        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-    return ch
 
 
 def setup_directions():
