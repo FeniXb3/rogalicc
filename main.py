@@ -1,3 +1,4 @@
+import character_fields as fields
 from data_loading import load_level, setup_directions, load_signs
 from display import show_screen_and_wait, show_2d_table
 from player_input import getch
@@ -17,13 +18,13 @@ def show_intro():
 def create_character():
     show_screen_and_wait(templates.CHARACTER_CREATION)
     player = {
-        "name": "Eisenheim",
-        "type": "player",
-        "position": {
+        fields.NAME: "Eisenheim",
+        fields.TYPE: "player",
+        fields.POSITION: {
             'x': 1,
             'y': 3
         },
-        "previous_position": {}
+        fields.PREVIOUS_POSITION: {}
     }
 
     return player
@@ -40,13 +41,13 @@ def get_sign_for(entity_type):
 
 
 def place_player(character, level):
-    x, y = character["position"].values()
-    entity_type = character["type"]
+    x, y = character[fields.POSITION].values()
+    entity_type = character[fields.TYPE]
 
     level[y][x] = get_sign_for(entity_type)
 
-    if character["previous_position"]:
-        old_x, old_y = character["previous_position"].values()
+    if character[fields.PREVIOUS_POSITION]:
+        old_x, old_y = character[fields.PREVIOUS_POSITION].values()
         level[old_y][old_x] = get_sign_for("empty")
 
 
@@ -57,8 +58,8 @@ def leave_game():
 
 def move(character, direction):
     for coord_key in direction:
-        character["previous_position"][coord_key] = character["position"][coord_key]
-        character["position"][coord_key] += direction[coord_key]
+        character[fields.PREVIOUS_POSITION][coord_key] = character[fields.POSITION][coord_key]
+        character[fields.POSITION][coord_key] += direction[coord_key]
 
 
 def start_game(character):
