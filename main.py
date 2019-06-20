@@ -1,6 +1,7 @@
 from data_loading import load_level, setup_directions, load_signs
 from display import show_screen_and_wait, show_2d_table
 from player_input import getch
+import templates
 
 
 def main():
@@ -10,11 +11,11 @@ def main():
 
 
 def show_intro():
-    show_screen_and_wait("Welcome to Rogalik!")
+    show_screen_and_wait(templates.WELCOME)
 
 
 def create_character():
-    show_screen_and_wait("=== Character creation ===")
+    show_screen_and_wait(templates.CHARACTER_CREATION)
     player = {
         "name": "Eisenheim",
         "type": "player",
@@ -50,7 +51,7 @@ def place_player(character, level):
 
 
 def leave_game():
-    show_screen_and_wait("Goodbye, hero!")
+    show_screen_and_wait(templates.GOODBYE)
     quit(0)
 
 
@@ -61,7 +62,7 @@ def move(character, direction):
 
 
 def start_game(character):
-    show_screen_and_wait("Let's play, {name}!".format(**character))
+    show_screen_and_wait(templates.GAME_START.format(**character))
 
     level = load_level()
     directions = setup_directions()
