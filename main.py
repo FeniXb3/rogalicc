@@ -1,4 +1,4 @@
-from data_loading import load_level, setup_directions
+from data_loading import load_level, setup_directions, load_signs
 from display import show_screen_and_wait, show_2d_table
 from player_input import getch
 
@@ -33,10 +33,7 @@ def show_level(level):
 
 
 def get_sign_for(entity_type):
-    signs = {
-        "player": "@",
-        "empty": "."
-    }
+    signs = load_signs()
 
     return signs[entity_type]
 

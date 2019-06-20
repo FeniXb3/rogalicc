@@ -32,3 +32,12 @@ def setup_directions():
     }
 
     return directions
+
+
+def load_signs():
+    signs = {
+        "player": "@",
+        "empty": "."
+    }
+
+    return signs
