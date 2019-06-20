@@ -1,7 +1,7 @@
 import character_fields as fields
-from data_loading import load_level, setup_directions, load_signs
-from display import show_screen_and_wait, show_2d_table
-from player_input import getch
+import data_loading
+import display
+import player_input
 import templates
 
 
@@ -12,11 +12,11 @@ def main():
 
 
 def show_intro():
-    show_screen_and_wait(templates.WELCOME)
+    display.show_screen_and_wait(templates.WELCOME)
 
 
 def create_character():
-    show_screen_and_wait(templates.CHARACTER_CREATION)
+    display.show_screen_and_wait(templates.CHARACTER_CREATION)
     player = {
         fields.NAME: "Eisenheim",
         fields.TYPE: "player",
@@ -31,11 +31,11 @@ def create_character():
 
 
 def show_level(level):
-    show_2d_table(level)
+    display.show_2d_table(level)
 
 
 def get_sign_for(entity_type):
-    signs = load_signs()
+    signs = data_loading.load_signs()
 
     return signs[entity_type]
 
@@ -52,7 +52,7 @@ def place_player(character, level):
 
 
 def leave_game():
-    show_screen_and_wait(templates.GOODBYE)
+    display.show_screen_and_wait(templates.GOODBYE)
     quit(0)
 
 
@@ -63,16 +63,16 @@ def move(character, direction):
 
 
 def start_game(character):
-    show_screen_and_wait(templates.GAME_START, character)
+    display.show_screen_and_wait(templates.GAME_START, character)
 
-    level = load_level()
-    directions = setup_directions()
+    level = data_loading.load_level()
+    directions = data_loading.setup_directions()
 
     while True:
         place_player(character, level)
         show_level(level)
 
-        key = getch()
+        key = player_input.getch()
 
         if key in directions:
             direction = directions[key]
