@@ -62,7 +62,7 @@ def move(character, direction):
 
 
 def start_game(character):
-    show_screen_and_wait(templates.GAME_START.format(**character))
+    show_screen_and_wait(templates.GAME_START, character)
 
     level = load_level()
     directions = setup_directions()

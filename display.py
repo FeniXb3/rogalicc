@@ -14,8 +14,10 @@ def show_screen(content):
     print(content)
 
 
-def show_screen_and_wait(content):
-    show_screen(content)
+def show_screen_and_wait(template, data=None):
+    if data is None:
+        data = {}
+    show_screen(template.format(**data))
     wait()
 
 
