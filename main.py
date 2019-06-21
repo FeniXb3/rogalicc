@@ -21,6 +21,9 @@ def create_character():
     player = {
         fields.NAME: "Eisenheim",
         fields.TYPE: "player",
+        fields.WALKABLES: [
+            "."
+        ],
         fields.POSITION: {
             'x': 1,
             'y': 3
@@ -71,7 +74,11 @@ def start_game(character):
 
         if key in directions:
             direction = directions[key]
-            character_actions.move(character, direction)
+            target_position = character_actions.calculate_target_position(character[fields.POSITION], direction)
+            x, y = target_position.values()
+            target_cell_sign = level[y][x]
+            if character_actions.can_move(character, target_cell_sign):
+                character_actions.move(character, target_position)
         elif key == "q":
             leave_game()
 
