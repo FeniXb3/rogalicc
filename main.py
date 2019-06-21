@@ -3,6 +3,7 @@ import data_loading
 import display
 import player_input
 import templates
+import character_actions
 
 
 def main():
@@ -56,12 +57,6 @@ def leave_game():
     quit(0)
 
 
-def move(character, direction):
-    for coord_key in direction:
-        character[fields.PREVIOUS_POSITION][coord_key] = character[fields.POSITION][coord_key]
-        character[fields.POSITION][coord_key] += direction[coord_key]
-
-
 def start_game(character):
     display.show_screen_and_wait(templates.GAME_START, character)
 
@@ -76,7 +71,7 @@ def start_game(character):
 
         if key in directions:
             direction = directions[key]
-            move(character, direction)
+            character_actions.move(character, direction)
         elif key == "q":
             leave_game()
 
