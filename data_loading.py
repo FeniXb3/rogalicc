@@ -81,3 +81,9 @@ def parse_level_data(level):
         y += 1
 
     return level_data
+
+
+def get_sign_for(entity_type):
+    signs = load_signs()
+
+    return signs[entity_type]

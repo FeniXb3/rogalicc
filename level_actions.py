@@ -2,7 +2,7 @@ import cell_fields
 import character_fields
 import character_fields as fields
 import level_fields
-from main import get_sign_for
+import data_loading
 
 
 def get_cell_at(level_data, position):
@@ -15,9 +15,9 @@ def refresh_view(data, view):
         x, y = cell[cell_fields.POSITION].values()
         visitor = cell[cell_fields.VISITOR]
         if visitor:
-            view[y][x] = get_sign_for(visitor[character_fields.TYPE])
+            view[y][x] = data_loading.get_sign_for(visitor[character_fields.TYPE])
         else:
-            view[y][x] = get_sign_for(cell[cell_fields.TYPE])
+            view[y][x] = data_loading.get_sign_for(cell[cell_fields.TYPE])
 
     data[level_fields.UPDATES] = []
 

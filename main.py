@@ -40,12 +40,6 @@ def show_level(level):
     display.show_2d_table(level)
 
 
-def get_sign_for(entity_type):
-    signs = data_loading.load_signs()
-
-    return signs[entity_type]
-
-
 def leave_game():
     display.show_screen_and_wait(templates.GOODBYE)
     quit(0)
