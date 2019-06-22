@@ -67,8 +67,7 @@ def start_game(character):
         if key in directions:
             direction = directions[key]
             target_position = character_actions.calculate_target_position(character[fields.POSITION], direction)
-            x, y = target_position.values()
-            target_cell = level_actions.get_cell_at(level_data, x, y)
+            target_cell = level_actions.get_cell_at(level_data, target_position)
             if character_actions.can_move(character, target_cell):
                 character_actions.move(character, target_position)
         elif key == "q":

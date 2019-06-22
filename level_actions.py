@@ -5,7 +5,8 @@ import level_fields
 from main import get_sign_for
 
 
-def get_cell_at(level_data, x, y):
+def get_cell_at(level_data, position):
+    x, y = position.values()
     return level_data[level_fields.CELLS][y][x]
 
 
@@ -23,8 +24,7 @@ def refresh_view(data, view):
 
 
 def update_visitor(level_data, position, visitor):
-    x, y = position.values()
-    cell = get_cell_at(level_data, x, y)
+    cell = get_cell_at(level_data, position)
     cell[cell_fields.VISITOR] = visitor
 
     level_data[level_fields.UPDATES].append(cell)
