@@ -1,6 +1,6 @@
 import copy
 
-import cell_fields
+from level import cell_fields
 from character import character_fields as fields
 
 

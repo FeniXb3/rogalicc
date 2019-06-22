@@ -1,5 +1,4 @@
-import cell_fields
-import level_fields
+from level import level_fields, cell_fields
 import position_fields as pos
 
 
@@ -54,13 +53,13 @@ def get_cell_type_by_sign(cell_sign):
             return cell_type
 
 
-def parse_level_data(level):
+def parse_level_data(level_view):
     level_data = {
         level_fields.CELLS: [],
         level_fields.UPDATES: []
     }
 
-    for y, row in enumerate(level):
+    for y, row in enumerate(level_view):
         data_row = []
         level_data[level_fields.CELLS].append(data_row)
         for x, cell in enumerate(row):

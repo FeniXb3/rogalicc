@@ -3,7 +3,7 @@ import display
 import player_input
 import templates
 from character import character_actions, character_fields as fields
-import level_actions
+from level import level_actions
 import position_fields as pos
 
 
@@ -47,14 +47,14 @@ def leave_game():
 def start_game(player):
     display.show_screen_and_wait(templates.GAME_START, player)
 
-    level = data_loading.load_level()
-    level_data = data_loading.parse_level_data(level)
+    level_view = data_loading.load_level()
+    level_data = data_loading.parse_level_data(level_view)
     directions = data_loading.setup_directions()
 
     while True:
         level_actions.place_character(player, level_data)
-        level_actions.refresh_view(level_data, level)
-        show_level(level)
+        level_actions.refresh_view(level_data, level_view)
+        show_level(level_view)
 
         key = player_input.getch()
 
