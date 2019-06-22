@@ -60,12 +60,10 @@ def parse_level_data(level):
         level_fields.UPDATES: []
     }
 
-    y = 0
-    for row in level:
+    for y, row in enumerate(level):
         data_row = []
         level_data[level_fields.CELLS].append(data_row)
-        x = 0
-        for cell in row:
+        for x, cell in enumerate(row):
             cell_type = get_cell_type_by_sign(cell)
 
             cell_data = {
@@ -78,8 +76,6 @@ def parse_level_data(level):
             }
 
             data_row.append(cell_data)
-            x += 1
-        y += 1
 
     return level_data
 
