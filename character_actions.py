@@ -1,11 +1,12 @@
+import copy
+
 import cell_fields
 import character_fields as fields
 
 
 def move(character, target_position):
-    for coord_key in target_position:
-        character[fields.PREVIOUS_POSITION][coord_key] = character[fields.POSITION][coord_key]
-        character[fields.POSITION][coord_key] = target_position[coord_key]
+    character[fields.PREVIOUS_POSITION] = copy.deepcopy(character[fields.POSITION])
+    character[fields.POSITION] = copy.deepcopy(target_position)
 
 
 def calculate_target_position(base_position, direction):
