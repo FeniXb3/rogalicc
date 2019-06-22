@@ -12,8 +12,7 @@ def get_cell_at(level_data, position):
 
 def refresh_view(data, view):
     for cell in data[level_fields.UPDATES]:
-        x = cell[cell_fields.POSITION]["x"]
-        y = cell[cell_fields.POSITION]["y"]
+        x, y = cell[cell_fields.POSITION].values()
         visitor = cell[cell_fields.VISITOR]
         if visitor:
             view[y][x] = get_sign_for(visitor[character_fields.TYPE])

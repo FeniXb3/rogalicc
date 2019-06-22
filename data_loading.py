@@ -1,4 +1,5 @@
 import cell_fields
+import position_fields as pos
 
 
 def load_level():
@@ -17,20 +18,20 @@ def load_level():
 def setup_directions():
     directions = {
         "w": {
-            "x": 0,
-            "y": -1
+            pos.X: 0,
+            pos.Y: -1
         },
         "s": {
-            "x": 0,
-            "y": 1
+            pos.X: 0,
+            pos.Y: 1
         },
         "a": {
-            "x": -1,
-            "y": 0
+            pos.X: -1,
+            pos.Y: 0
         },
         "d": {
-            "x": 1,
-            "y": 0
+            pos.X: 1,
+            pos.Y: 0
         },
     }
 
@@ -69,8 +70,8 @@ def parse_level_data(level):
             cell_data = {
                 cell_fields.TYPE: cell_type,
                 cell_fields.POSITION: {
-                    "x": x,
-                    "y": y
+                    pos.X: x,
+                    pos.Y: y
                 },
                 cell_fields.VISITOR: None
             }

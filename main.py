@@ -5,6 +5,7 @@ import player_input
 import templates
 import character_actions
 import level_actions
+import position_fields as pos
 
 
 def main():
@@ -26,8 +27,8 @@ def create_character():
             "empty"
         ],
         fields.POSITION: {
-            'x': 1,
-            'y': 3
+            pos.X: 1,
+            pos.Y: 3
         },
         fields.PREVIOUS_POSITION: {}
     }
