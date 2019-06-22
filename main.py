@@ -10,7 +10,7 @@ import position_fields as pos
 
 def main():
     show_intro()
-    player = create_character()
+    player = create_player_character()
     start_game(player)
 
 
@@ -18,7 +18,7 @@ def show_intro():
     display.show_screen_and_wait(templates.WELCOME)
 
 
-def create_character():
+def create_player_character():
     display.show_screen_and_wait(templates.CHARACTER_CREATION)
     player = {
         fields.NAME: "Eisenheim",
@@ -45,15 +45,15 @@ def leave_game():
     quit(0)
 
 
-def start_game(character):
-    display.show_screen_and_wait(templates.GAME_START, character)
+def start_game(player):
+    display.show_screen_and_wait(templates.GAME_START, player)
 
     level = data_loading.load_level()
     level_data = data_loading.parse_level_data(level)
     directions = data_loading.setup_directions()
 
     while True:
-        level_actions.place_character(character, level_data)
+        level_actions.place_character(player, level_data)
         level_actions.refresh_view(level_data, level)
         show_level(level)
 
@@ -61,10 +61,10 @@ def start_game(character):
 
         if key in directions:
             direction = directions[key]
-            target_position = character_actions.calculate_target_position(character[fields.POSITION], direction)
+            target_position = character_actions.calculate_target_position(player[fields.POSITION], direction)
             target_cell = level_actions.get_cell_at(level_data, target_position)
-            if character_actions.can_move(character, target_cell):
-                character_actions.move(character, target_position)
+            if character_actions.can_move(player, target_cell):
+                character_actions.move(player, target_position)
         elif key == "q":
             leave_game()
 
