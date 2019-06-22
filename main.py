@@ -1,9 +1,8 @@
-import character_fields as fields
 import data_loading
 import display
 import player_input
 import templates
-import character_actions
+from character import character_actions, character_fields as fields
 import level_actions
 import position_fields as pos
 

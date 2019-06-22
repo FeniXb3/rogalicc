@@ -1,7 +1,7 @@
 import copy
 
 import cell_fields
-import character_fields as fields
+from character import character_fields as fields
 
 
 def move(character, target_position):

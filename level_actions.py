@@ -1,6 +1,5 @@
 import cell_fields
-import character_fields
-import character_fields as fields
+from character import character_fields, character_fields as fields
 import level_fields
 import data_loading
 
