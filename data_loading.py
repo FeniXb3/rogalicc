@@ -1,3 +1,6 @@
+import cell_fields
+
+
 def load_level():
     return [
         ['#','#','#','#','#','#','#','#','#','#','#'],
@@ -57,6 +60,11 @@ def parse_level_data(level):
         level_data.append(data_row)
         for cell in row:
             cell_type = get_cell_type_by_sign(cell)
-            data_row.append(cell_type)
+
+            cell_data = {
+                cell_fields.TYPE: cell_type,
+            }
+
+            data_row.append(cell_data)
 
     return level_data

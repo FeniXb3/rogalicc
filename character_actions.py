@@ -1,3 +1,4 @@
+import cell_fields
 import character_fields as fields
 
 
@@ -16,5 +17,5 @@ def calculate_target_position(base_position, direction):
     return target_position
 
 
-def can_move(character, target_cell_sign):
-    return target_cell_sign in character[fields.WALKABLES]
+def can_move(character, target_cell):
+    return target_cell[cell_fields.TYPE] in character[fields.WALKABLES]
