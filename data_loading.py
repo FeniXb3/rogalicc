@@ -53,18 +53,30 @@ def get_cell_type_by_sign(cell_sign):
 
 
 def parse_level_data(level):
-    level_data = []
+    level_data = {
+        "cells": [],
+        "updates": []
+    }
 
+    y = 0
     for row in level:
         data_row = []
-        level_data.append(data_row)
+        level_data["cells"].append(data_row)
+        x = 0
         for cell in row:
             cell_type = get_cell_type_by_sign(cell)
 
             cell_data = {
                 cell_fields.TYPE: cell_type,
+                cell_fields.POSITION: {
+                    "x": x,
+                    "y": y
+                },
+                cell_fields.VISITOR: None
             }
 
             data_row.append(cell_data)
+            x += 1
+        y += 1
 
     return level_data

@@ -4,6 +4,7 @@ import display
 import player_input
 import templates
 import character_actions
+import level_actions
 
 
 def main():
@@ -44,15 +45,11 @@ def get_sign_for(entity_type):
     return signs[entity_type]
 
 
-def place_player(character, level):
-    x, y = character[fields.POSITION].values()
-    entity_type = character[fields.TYPE]
-
-    level[y][x] = get_sign_for(entity_type)
+def place_player(character, level_data):
+    level_actions.update_visitor(level_data, character[fields.POSITION], character)
 
     if character[fields.PREVIOUS_POSITION]:
-        old_x, old_y = character[fields.PREVIOUS_POSITION].values()
-        level[old_y][old_x] = get_sign_for("empty")
+        level_actions.update_visitor(level_data, character[fields.PREVIOUS_POSITION], None)
 
 
 def leave_game():
@@ -68,7 +65,8 @@ def start_game(character):
     directions = data_loading.setup_directions()
 
     while True:
-        place_player(character, level)
+        place_player(character, level_data)
+        level_actions.refresh_view(level_data, level)
         show_level(level)
 
         key = player_input.getch()
@@ -77,7 +75,7 @@ def start_game(character):
             direction = directions[key]
             target_position = character_actions.calculate_target_position(character[fields.POSITION], direction)
             x, y = target_position.values()
-            target_cell = level_data[y][x]
+            target_cell = level_actions.get_cell_at(level_data, x, y)
             if character_actions.can_move(character, target_cell):
                 character_actions.move(character, target_position)
         elif key == "q":
