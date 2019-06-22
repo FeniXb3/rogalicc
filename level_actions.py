@@ -1,5 +1,6 @@
 import cell_fields
 import character_fields
+import character_fields as fields
 import level_fields
 from main import get_sign_for
 
@@ -27,3 +28,10 @@ def update_visitor(level_data, position, visitor):
     cell[cell_fields.VISITOR] = visitor
 
     level_data[level_fields.UPDATES].append(cell)
+
+
+def place_character(character, level_data):
+    update_visitor(level_data, character[fields.POSITION], character)
+
+    if character[fields.PREVIOUS_POSITION]:
+        update_visitor(level_data, character[fields.PREVIOUS_POSITION], None)

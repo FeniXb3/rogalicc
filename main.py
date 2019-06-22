@@ -45,13 +45,6 @@ def get_sign_for(entity_type):
     return signs[entity_type]
 
 
-def place_player(character, level_data):
-    level_actions.update_visitor(level_data, character[fields.POSITION], character)
-
-    if character[fields.PREVIOUS_POSITION]:
-        level_actions.update_visitor(level_data, character[fields.PREVIOUS_POSITION], None)
-
-
 def leave_game():
     display.show_screen_and_wait(templates.GOODBYE)
     quit(0)
@@ -65,7 +58,7 @@ def start_game(character):
     directions = data_loading.setup_directions()
 
     while True:
-        place_player(character, level_data)
+        level_actions.place_character(character, level_data)
         level_actions.refresh_view(level_data, level)
         show_level(level)
 
