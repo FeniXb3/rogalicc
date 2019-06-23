@@ -1,6 +1,6 @@
 from character import character_fields, character_fields as fields
 from level import level_fields, cell_fields
-import data_loading
+from data import data_loading
 
 
 def get_cell_at(level_data, position):

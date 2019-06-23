@@ -1,7 +1,6 @@
-import data_loading
+from data import data_loading, templates
 import display
 import player_input
-import templates
 from character import character_actions, character_fields as fields
 from level import level_actions
 import position_fields as pos
