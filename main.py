@@ -1,8 +1,7 @@
 from data import data_loading, templates
 from player_interaction import player_input, display
 from character import character_actions, character_fields as fields
-from level import level_actions
-import position_fields as pos
+from level import level_actions, position_fields as pos
 
 
 def main():

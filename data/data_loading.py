@@ -1,5 +1,4 @@
-from level import level_fields, cell_fields
-import position_fields as pos
+from level import level_fields, cell_fields, position_fields as pos
 
 
 def load_level():
