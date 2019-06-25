@@ -1,7 +1,7 @@
 from data import data_loading, templates
 from player_interaction import player_input, display
-from character import character_actions, character_fields as fields
-from level import level_actions, position_fields as pos
+from character import character_actions, character_fields as fields, entity_types
+from level import level_actions, position_fields as pos, cell_types
 
 
 def main():
@@ -18,9 +18,9 @@ def create_player_character():
     display.show_screen_and_wait(templates.CHARACTER_CREATION)
     player = {
         fields.NAME: "Eisenheim",
-        fields.TYPE: "player",
+        fields.TYPE: entity_types.PLAYER,
         fields.WALKABLES: [
-            "empty"
+            cell_types.EMPTY
         ],
         fields.POSITION: {
             pos.X: 1,

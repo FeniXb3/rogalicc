@@ -1,4 +1,5 @@
-from level import level_fields, cell_fields, position_fields as pos
+from character import entity_types
+from level import level_fields, cell_fields, position_fields as pos, cell_types
 
 
 def load_level():
@@ -36,8 +37,8 @@ def setup_directions():
 
 def load_signs():
     signs = {
-        "player": "@",
-        "empty": "."
+        entity_types.PLAYER: "@",
+        cell_types.EMPTY: ".",
     }
 
     return signs
