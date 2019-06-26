@@ -32,3 +32,10 @@ def place_character(character, level_data):
 
     if character[fields.PREVIOUS_POSITION]:
         update_visitor(level_data, character[fields.PREVIOUS_POSITION], None)
+
+
+def update_item(level_data, position, item):
+    cell = get_cell_at(level_data, position)
+    cell[cell_fields.ITEM] = item
+
+    level_data[level_fields.UPDATES].append(cell)

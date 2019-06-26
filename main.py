@@ -1,7 +1,7 @@
 from data import data_loading, templates
 from player_interaction import player_input, display
 from character import character_actions, character_fields as fields, entity_types
-from level import level_actions, position_fields as pos, cell_types
+from level import level_actions, position_fields as pos, cell_types, cell_fields, item_types
 
 
 def main():
@@ -14,14 +14,27 @@ def show_intro():
     display.show_screen_and_wait(templates.WELCOME)
 
 
+def add_to_inventory(character, item):
+    character[fields.INVENTORY].append(item)
+
+
+def collect(character, item, level_data):
+    add_to_inventory(character, item)
+    position = item["position"]
+    level_actions.update_item(level_data, position, None)
+
 def create_player_character():
     display.show_screen_and_wait(templates.CHARACTER_CREATION)
     player = {
         fields.NAME: "Eisenheim",
         fields.TYPE: entity_types.PLAYER,
+        fields.INVENTORY: [],
         fields.WALKABLES: [
             cell_types.EMPTY
         ],
+        fields.INTERACTABLES: {
+            item_types.KEY: collect
+        },
         fields.POSITION: {
             pos.X: 1,
             pos.Y: 3
@@ -39,6 +52,32 @@ def show_level(level):
 def leave_game():
     display.show_screen_and_wait(templates.GOODBYE)
     quit(0)
+
+
+def can_interact_with_item(character, item_data):
+    if not item_data:
+        return False
+
+    item_type = item_data["type"]
+    return item_type in character[fields.INTERACTABLES]
+
+
+def can_interact(character, target_cell):
+    if can_interact_with_item(character, target_cell[cell_fields.ITEM]):
+        return True
+
+    return False
+
+
+def interact(character, target_cell, level_data):
+    item_data = target_cell[cell_fields.ITEM]
+
+    if not item_data:
+        return
+
+    item_type = item_data["type"]
+    action = character[fields.INTERACTABLES][item_type]
+    action(character, item_data, level_data)
 
 
 def start_game(player):
@@ -59,6 +98,10 @@ def start_game(player):
             direction = directions[key]
             target_position = character_actions.calculate_target_position(player[fields.POSITION], direction)
             target_cell = level_actions.get_cell_at(level_data, target_position)
+
+            if can_interact(player, target_cell):
+                interact(player, target_cell, level_data)
+
             if character_actions.can_move(player, target_cell):
                 character_actions.move(player, target_position)
         elif key == "q":
