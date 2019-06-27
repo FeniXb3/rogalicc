@@ -43,3 +43,9 @@ def update_item(level_data, position, item):
     cell[cell_fields.ITEM] = item
 
     level_data[level_fields.UPDATES].append(cell)
+
+
+def remove_item(level_data, item):
+    position = item[item_fields.POSITION]
+    item[item_fields.POSITION] = None
+    update_item(level_data, position, None)

@@ -34,6 +34,9 @@ def create_player_character():
         fields.WALKABLES: [
             cell_types.EMPTY
         ],
+        fields.INTERACTABLES: {
+            item_types.KEY: character_actions.pick_up_item
+        },
         fields.POSITION: {
             pos.X: 1,
             pos.Y: 3
@@ -102,6 +105,8 @@ def start_game(player):
             direction = directions[key]
             target_position = character_actions.calculate_target_position(player[fields.POSITION], direction)
             target_cell = level_actions.get_cell_at(level_data, target_position)
+            if character_actions.can_interact(player, target_cell):
+                character_actions.interact(player, target_cell, level_data)
             if character_actions.can_move(player, target_cell):
                 character_actions.move(player, target_position)
         elif key == "q":

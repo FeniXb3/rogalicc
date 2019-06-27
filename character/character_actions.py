@@ -1,6 +1,7 @@
 import copy
 
-from level import cell_fields
+from item import item_fields
+from level import cell_fields, level_actions
 from character import character_fields as fields
 
 
@@ -25,3 +26,24 @@ def can_move(character, target_cell):
 def add_to_inventory(character, item):
     inventory = character[fields.INVENTORY]
     inventory.append(item)
+
+
+def can_interact(character, target_cell):
+    item = target_cell[cell_fields.ITEM]
+    if not item:
+        return False
+
+    return item[item_fields.TYPE] in character[fields.INTERACTABLES]
+
+
+def interact(character, target_cell, level_data):
+    item = target_cell[cell_fields.ITEM]
+    item_type = item[item_fields.TYPE]
+    action = character[fields.INTERACTABLES][item_type]
+
+    action(character, item, level_data)
+
+
+def pick_up_item(character, item, level_data):
+    add_to_inventory(character, item)
+    level_actions.remove_item(level_data, item)
