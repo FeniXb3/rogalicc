@@ -66,6 +66,15 @@ def add_key_to_level(level_data):
     level_actions.update_item(level_data, position, key_data)
 
 
+def add_key_to_inventory(character):
+    key_data = {
+        item_fields.TYPE: item_types.KEY,
+        item_fields.POSITION: None
+    }
+
+    character_actions.add_to_inventory(character, key_data)
+
+
 def show_inventory(inventory):
     print(templates.INVENTORY)
     for item in inventory:
@@ -78,6 +87,7 @@ def start_game(player):
     level_view = data_loading.load_level()
     level_data = data_loading.parse_level_data(level_view)
     add_key_to_level(level_data)
+    add_key_to_inventory(player)
     directions = data_loading.setup_directions()
 
     while True:

@@ -20,3 +20,8 @@ def calculate_target_position(base_position, direction):
 
 def can_move(character, target_cell):
     return target_cell[cell_fields.TYPE] in character[fields.WALKABLES]
+
+
+def add_to_inventory(character, item):
+    inventory = character[fields.INVENTORY]
+    inventory.append(item)
