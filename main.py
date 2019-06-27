@@ -1,4 +1,6 @@
 from data import data_loading, templates
+from item import item_fields
+from item import item_types
 from player_interaction import player_input, display
 from character import character_actions, character_fields as fields, entity_types
 from level import level_actions, position_fields as pos, cell_types
@@ -41,11 +43,25 @@ def leave_game():
     quit(0)
 
 
+def add_key_to_level(level_data):
+    position = {
+        pos.X: 1,
+        pos.Y: 2
+    }
+    key_data = {
+        item_fields.TYPE: item_types.KEY,
+        item_fields.POSITION: position
+    }
+
+    level_actions.update_item(level_data, position, key_data)
+
+
 def start_game(player):
     display.show_screen_and_wait(templates.GAME_START, player)
 
     level_view = data_loading.load_level()
     level_data = data_loading.parse_level_data(level_view)
+    add_key_to_level(level_data)
     directions = data_loading.setup_directions()
 
     while True:
