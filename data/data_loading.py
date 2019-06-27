@@ -61,21 +61,25 @@ def parse_level_data(level_view):
         data_row = []
         level_data[level_fields.CELLS].append(data_row)
         for x, cell in enumerate(row):
-            cell_type = get_cell_type_by_sign(cell)
-
-            cell_data = {
-                cell_fields.TYPE: cell_type,
-                cell_fields.POSITION: {
-                    pos.X: x,
-                    pos.Y: y
-                },
-                cell_fields.VISITOR: None,
-                cell_fields.ITEM: None
-            }
+            cell_data = parse_cell(cell, x, y)
 
             data_row.append(cell_data)
 
     return level_data
+
+
+def parse_cell(cell, x, y):
+    cell_type = get_cell_type_by_sign(cell)
+    cell_data = {
+        cell_fields.TYPE: cell_type,
+        cell_fields.POSITION: {
+            pos.X: x,
+            pos.Y: y
+        },
+        cell_fields.VISITOR: None,
+        cell_fields.ITEM: None
+    }
+    return cell_data
 
 
 def get_sign_for(entity_type):
