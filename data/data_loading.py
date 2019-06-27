@@ -1,4 +1,5 @@
 from character import entity_types
+from item import item_types
 from level import level_fields, cell_fields, position_fields as pos, cell_types
 
 
@@ -68,7 +69,8 @@ def parse_level_data(level_view):
                     pos.X: x,
                     pos.Y: y
                 },
-                cell_fields.VISITOR: None
+                cell_fields.VISITOR: None,
+                cell_fields.ITEM: None
             }
 
             data_row.append(cell_data)
@@ -80,3 +82,17 @@ def get_sign_for(entity_type):
     signs = load_signs()
 
     return signs[entity_type]
+
+
+def load_item_signs():
+    signs = {
+        item_types.KEY: "k"
+    }
+
+    return signs
+
+
+def get_item_sign_for(item_type):
+    signs = load_item_signs()
+
+    return signs[item_type]
