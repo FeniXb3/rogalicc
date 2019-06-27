@@ -1,1 +1,2 @@
 KEY = 'key'
+RING = "ring"

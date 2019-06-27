@@ -21,6 +21,16 @@ def create_player_character():
     player = {
         fields.NAME: "Eisenheim",
         fields.TYPE: entity_types.PLAYER,
+        fields.INVENTORY: [
+            {
+                item_fields.TYPE: item_types.KEY,
+                item_fields.POSITION: None
+            },
+            {
+                item_fields.TYPE: item_types.RING,
+                item_fields.POSITION: None
+            }
+        ],
         fields.WALKABLES: [
             cell_types.EMPTY
         ],
@@ -56,6 +66,12 @@ def add_key_to_level(level_data):
     level_actions.update_item(level_data, position, key_data)
 
 
+def show_inventory(inventory):
+    print(templates.INVENTORY)
+    for item in inventory:
+        print(item)
+
+
 def start_game(player):
     display.show_screen_and_wait(templates.GAME_START, player)
 
@@ -68,6 +84,7 @@ def start_game(player):
         level_actions.place_character(player, level_data)
         level_actions.refresh_view(level_data, level_view)
         show_level(level_view)
+        show_inventory(player[fields.INVENTORY])
 
         key = player_input.getch()
 
