@@ -25,10 +25,8 @@ def refresh_view(data, view):
 
 
 def update_visitor(level_data, position, visitor):
-    cell = get_cell_at(level_data, position)
-    cell[cell_fields.VISITOR] = visitor
-
-    queue_cell_update(level_data, cell)
+    field = cell_fields.VISITOR
+    update_cell_field(level_data, position, field, visitor)
 
 
 def place_character(character, level_data):
@@ -39,16 +37,20 @@ def place_character(character, level_data):
 
 
 def update_item(level_data, position, item):
-    cell = get_cell_at(level_data, position)
-    cell[cell_fields.ITEM] = item
-
-    queue_cell_update(level_data, cell)
+    field = cell_fields.ITEM
+    update_cell_field(level_data, position, field, item)
 
 
 def remove_item(level_data, item):
     position = item[item_fields.POSITION]
     item[item_fields.POSITION] = None
     update_item(level_data, position, None)
+
+
+def update_cell_field(level_data, position, field, data):
+    cell = get_cell_at(level_data, position)
+    cell[field] = data
+    queue_cell_update(level_data, cell)
 
 
 def queue_cell_update(level_data, cell_data):
