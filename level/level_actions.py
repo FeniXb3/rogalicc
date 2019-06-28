@@ -47,6 +47,11 @@ def remove_item(level_data, item):
     update_item(level_data, position, None)
 
 
+def update_obstacle(level_data, position, obstacle):
+    field = cell_fields.OBSTACLE
+    update_cell_field(level_data, position, field, obstacle)
+
+
 def update_cell_field(level_data, position, field, data):
     cell = get_cell_at(level_data, position)
     cell[field] = data

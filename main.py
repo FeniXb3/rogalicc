@@ -84,6 +84,19 @@ def show_inventory(inventory):
         print(item)
 
 
+def add_door_to_level(level_data):
+    position = {
+        pos.X: 10,
+        pos.Y: 7
+    }
+    door_data = {
+        "type": "door",
+        "position": position
+    }
+
+    level_actions.update_obstacle(level_data, position, door_data)
+
+
 def start_game(player):
     display.show_screen_and_wait(templates.GAME_START, player)
 
@@ -91,6 +104,7 @@ def start_game(player):
     level_data, level_view = data_loading.parse_level_data(level_raw_view)
     add_key_to_level(level_data)
     add_key_to_inventory(player)
+    add_door_to_level(level_data)
     directions = data_loading.setup_directions()
 
     while True:
