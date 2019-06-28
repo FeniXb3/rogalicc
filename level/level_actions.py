@@ -64,3 +64,9 @@ def update_cell_field(level_data, position, field, data):
 
 def queue_cell_update(level_data, cell_data):
     level_data[level_fields.UPDATES].append(cell_data)
+
+
+def remove_obstacle(level_data, obstacle):
+    position = obstacle[obstacle_fields.POSITION]
+    obstacle[obstacle_fields.POSITION] = None
+    update_obstacle(level_data, position, None)

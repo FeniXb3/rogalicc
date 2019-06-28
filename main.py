@@ -1,7 +1,7 @@
 from data import data_loading, templates
 from item import item_fields
 from item import item_types
-from obstacle import obstacle_fields
+from obstacle import obstacle_fields, obstacle_types
 from player_interaction import player_input, display
 from character import character_actions, character_fields as fields, entity_types
 from level import level_actions, position_fields as pos, cell_types
@@ -24,10 +24,6 @@ def create_player_character():
         fields.TYPE: entity_types.PLAYER,
         fields.INVENTORY: [
             {
-                item_fields.TYPE: item_types.KEY,
-                item_fields.POSITION: None
-            },
-            {
                 item_fields.TYPE: item_types.RING,
                 item_fields.POSITION: None
             }
@@ -36,7 +32,8 @@ def create_player_character():
             cell_types.EMPTY
         ],
         fields.INTERACTABLES: {
-            item_types.KEY: character_actions.pick_up_item
+            item_types.KEY: character_actions.pick_up_item,
+            obstacle_types.DOOR: character_actions.try_opening_door
         },
         fields.POSITION: {
             pos.X: 1,
@@ -70,15 +67,6 @@ def add_key_to_level(level_data):
     level_actions.update_item(level_data, position, key_data)
 
 
-def add_key_to_inventory(character):
-    key_data = {
-        item_fields.TYPE: item_types.KEY,
-        item_fields.POSITION: None
-    }
-
-    character_actions.add_to_inventory(character, key_data)
-
-
 def show_inventory(inventory):
     print(templates.INVENTORY)
     for item in inventory:
@@ -104,7 +92,6 @@ def start_game(player):
     level_raw_view = data_loading.load_level()
     level_data, level_view = data_loading.parse_level_data(level_raw_view)
     add_key_to_level(level_data)
-    add_key_to_inventory(player)
     add_door_to_level(level_data)
     directions = data_loading.setup_directions()
 

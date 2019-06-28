@@ -1,6 +1,6 @@
 import copy
 
-from item import item_fields
+from item import item_fields, item_types
 from level import cell_fields, level_actions
 from character import character_fields as fields
 
@@ -33,21 +33,50 @@ def add_to_inventory(character, item):
 
 
 def can_interact(character, target_cell):
-    item = target_cell[cell_fields.ITEM]
-    if not item:
+    return can_interact_with_item(character, target_cell) or can_interact_with_obstacle(character, target_cell)
+
+
+def can_interact_with_item(character, target_cell):
+    field = cell_fields.ITEM
+    return can_interact_with_field(character, target_cell, field)
+
+
+def can_interact_with_obstacle(character, target_cell):
+    field = cell_fields.OBSTACLE
+    return can_interact_with_field(character, target_cell, field)
+
+
+def can_interact_with_field(character, target_cell, field):
+    data = target_cell[field]
+    if not data:
         return False
 
-    return item[item_fields.TYPE] in character[fields.INTERACTABLES]
+    return data[item_fields.TYPE] in character[fields.INTERACTABLES]
+
+
+def get_interactable_element(cell):
+    obstacle = cell[cell_fields.OBSTACLE]
+    item = cell[cell_fields.ITEM]
+    if obstacle:
+        return obstacle
+    if item:
+        return item
 
 
 def interact(character, target_cell, level_data):
-    item = target_cell[cell_fields.ITEM]
-    item_type = item[item_fields.TYPE]
-    action = character[fields.INTERACTABLES][item_type]
+    element = get_interactable_element(target_cell)
+    element_type = element[item_fields.TYPE]
+    action = character[fields.INTERACTABLES][element_type]
 
-    action(character, item, level_data)
+    action(character, element, level_data)
 
 
 def pick_up_item(character, item, level_data):
     add_to_inventory(character, item)
     level_actions.remove_item(level_data, item)
+
+
+def try_opening_door(character, door, level_data):
+    key = next((item for item in character[fields.INVENTORY] if item[item_fields.TYPE] == item_types.KEY), None)
+    if key:
+        level_actions.remove_obstacle(level_data, door)
