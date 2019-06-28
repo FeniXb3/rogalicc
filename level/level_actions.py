@@ -28,7 +28,7 @@ def update_visitor(level_data, position, visitor):
     cell = get_cell_at(level_data, position)
     cell[cell_fields.VISITOR] = visitor
 
-    level_data[level_fields.UPDATES].append(cell)
+    queue_cell_update(level_data, cell)
 
 
 def place_character(character, level_data):
@@ -42,10 +42,14 @@ def update_item(level_data, position, item):
     cell = get_cell_at(level_data, position)
     cell[cell_fields.ITEM] = item
 
-    level_data[level_fields.UPDATES].append(cell)
+    queue_cell_update(level_data, cell)
 
 
 def remove_item(level_data, item):
     position = item[item_fields.POSITION]
     item[item_fields.POSITION] = None
     update_item(level_data, position, None)
+
+
+def queue_cell_update(level_data, cell_data):
+    level_data[level_fields.UPDATES].append(cell_data)

@@ -1,6 +1,6 @@
 from character import entity_types
 from item import item_types
-from level import level_fields, cell_fields, position_fields as pos, cell_types
+from level import level_fields, cell_fields, position_fields as pos, cell_types, level_actions
 
 
 def load_level():
@@ -68,7 +68,7 @@ def parse_level_data(level_raw_view):
             cell_data = parse_cell(cell, x, y)
             data_row.append(cell_data)
             view_row.append(None)
-            level_data[level_fields.UPDATES].append(cell_data)
+            level_actions.queue_cell_update(level_data, cell_data)
 
     return level_data, level_view
 
