@@ -1,1 +1,2 @@
 EMPTY = "empty"
+WALL = "wall"

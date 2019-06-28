@@ -87,8 +87,8 @@ def show_inventory(inventory):
 def start_game(player):
     display.show_screen_and_wait(templates.GAME_START, player)
 
-    level_view = data_loading.load_level()
-    level_data = data_loading.parse_level_data(level_view)
+    level_raw_view = data_loading.load_level()
+    level_data, level_view = data_loading.parse_level_data(level_raw_view)
     add_key_to_level(level_data)
     add_key_to_inventory(player)
     directions = data_loading.setup_directions()

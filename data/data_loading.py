@@ -40,6 +40,7 @@ def load_signs():
     signs = {
         entity_types.PLAYER: "@",
         cell_types.EMPTY: ".",
+        cell_types.WALL: "#",
     }
 
     return signs
@@ -51,21 +52,25 @@ def get_cell_type_by_sign(cell_sign):
             return cell_type
 
 
-def parse_level_data(level_view):
+def parse_level_data(level_raw_view):
     level_data = {
         level_fields.CELLS: [],
         level_fields.UPDATES: []
     }
+    level_view = []
 
-    for y, row in enumerate(level_view):
+    for y, row in enumerate(level_raw_view):
         data_row = []
         level_data[level_fields.CELLS].append(data_row)
+        view_row = []
+        level_view.append(view_row)
         for x, cell in enumerate(row):
             cell_data = parse_cell(cell, x, y)
-
             data_row.append(cell_data)
+            view_row.append(None)
+            level_data[level_fields.UPDATES].append(cell_data)
 
-    return level_data
+    return level_data, level_view
 
 
 def parse_cell(cell, x, y):
