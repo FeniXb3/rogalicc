@@ -20,6 +20,10 @@ def calculate_target_position(base_position, direction):
 
 
 def can_move(character, target_cell):
+    obstacle = target_cell[cell_fields.OBSTACLE]
+    if obstacle:
+        return False
+
     return target_cell[cell_fields.TYPE] in character[fields.WALKABLES]
 
 
