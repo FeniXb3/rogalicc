@@ -2,6 +2,7 @@ from character import character_fields, character_fields as fields
 from item import item_fields
 from level import level_fields, cell_fields
 from data import data_loading
+from obstacle import obstacle_fields
 
 
 def get_cell_at(level_data, position):
@@ -13,9 +14,12 @@ def refresh_view(data, view):
     for cell in data[level_fields.UPDATES]:
         x, y = cell[cell_fields.POSITION].values()
         visitor = cell[cell_fields.VISITOR]
+        obstacle = cell[cell_fields.OBSTACLE]
         item = cell[cell_fields.ITEM]
         if visitor:
             view[y][x] = data_loading.get_sign_for(visitor[character_fields.TYPE])
+        elif obstacle:
+            view[y][x] = data_loading.get_obstacle_sign_for(obstacle[obstacle_fields.TYPE])
         elif item:
             view[y][x] = data_loading.get_item_sign_for(item[item_fields.TYPE])
         else:

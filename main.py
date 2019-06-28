@@ -1,6 +1,7 @@
 from data import data_loading, templates
 from item import item_fields
 from item import item_types
+from obstacle import obstacle_fields
 from player_interaction import player_input, display
 from character import character_actions, character_fields as fields, entity_types
 from level import level_actions, position_fields as pos, cell_types
@@ -90,8 +91,8 @@ def add_door_to_level(level_data):
         pos.Y: 7
     }
     door_data = {
-        "type": "door",
-        "position": position
+        obstacle_fields.TYPE: "door",
+        obstacle_fields.POSITION: position
     }
 
     level_actions.update_obstacle(level_data, position, door_data)

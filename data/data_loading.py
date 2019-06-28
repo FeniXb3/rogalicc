@@ -1,6 +1,7 @@
 from character import entity_types
 from item import item_types
 from level import level_fields, cell_fields, position_fields as pos, cell_types, level_actions
+from obstacle import obstacle_types
 
 
 def load_level():
@@ -82,7 +83,8 @@ def parse_cell(cell, x, y):
             pos.Y: y
         },
         cell_fields.VISITOR: None,
-        cell_fields.ITEM: None
+        cell_fields.ITEM: None,
+        cell_fields.OBSTACLE: None
     }
     return cell_data
 
@@ -105,3 +107,17 @@ def get_item_sign_for(item_type):
     signs = load_item_signs()
 
     return signs[item_type]
+
+
+def load_obstacle_signs():
+    signs = {
+        obstacle_types.DOOR: "+"
+    }
+
+    return signs
+
+
+def get_obstacle_sign_for(obstacle_type):
+    signs = load_obstacle_signs()
+
+    return signs[obstacle_type]
