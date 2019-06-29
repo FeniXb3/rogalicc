@@ -121,3 +121,7 @@ def get_inventory(character):
 
 def set_previous_position_to_actual(character):
     character[fields.PREVIOUS_POSITION] = copy.deepcopy(character[fields.POSITION])
+
+
+def find_in_inventory(character, item_type):
+    return next((item for item in character[fields.INVENTORY] if item[item_fields.TYPE] == item_type), None)
