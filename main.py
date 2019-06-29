@@ -80,7 +80,7 @@ def add_door_to_level(level_data):
         pos.Y: 7
     }
     door_data = {
-        obstacle_fields.TYPE: "door",
+        obstacle_fields.TYPE: obstacle_types.DOOR,
         obstacle_fields.POSITION: position
     }
 
