@@ -19,29 +19,28 @@ def show_intro():
 
 def create_player_character():
     display.show_screen_and_wait(templates.CHARACTER_CREATION)
-    player = {
-        fields.NAME: "Eisenheim",
-        fields.TYPE: entity_types.PLAYER,
-        fields.GET_ACTION_NAME: player_input.get_action_by_key,
-        fields.INVENTORY: [
-            {
-                item_fields.TYPE: item_types.RING,
-                item_fields.POSITION: None
-            }
-        ],
-        fields.WALKABLES: [
-            cell_types.STONE_FLOOR
-        ],
-        fields.INTERACTABLES: {
-            item_types.KEY: interactions.pick_up_item,
-            obstacle_types.DOOR: interactions.try_opening_door
-        },
-        fields.POSITION: {
-            pos.X: 1,
-            pos.Y: 3
-        },
-        fields.PREVIOUS_POSITION: {}
+
+    name = 'Eisenheim'
+    entity_type = entity_types.PLAYER
+    get_action_name = player_input.get_action_by_key
+    position = {
+        pos.X: 1,
+        pos.Y: 3
     }
+    ring = {
+        item_fields.TYPE: item_types.RING,
+        item_fields.POSITION: None
+    }
+
+    player = data_loading.load_entity_template("character")
+    character_actions.set_name(player, name)
+    character_actions.set_type(player, entity_type)
+    character_actions.set_get_action_name(player, get_action_name)
+    character_actions.add_walkable(player, cell_types.STONE_FLOOR)
+    character_actions.add_interactable(player, item_types.KEY, interactions.pick_up_item)
+    character_actions.add_interactable(player, obstacle_types.DOOR, interactions.try_opening_door)
+    character_actions.set_position(player, position)
+    character_actions.add_to_inventory(player, ring)
 
     return player
 

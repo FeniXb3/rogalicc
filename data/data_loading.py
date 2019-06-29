@@ -1,3 +1,5 @@
+import json
+
 from character import entity_types
 from character import action_names
 from item import item_types
@@ -133,3 +135,11 @@ def setup_key_bindings():
         "q": action_names.QUIT
     }
     return bindings
+
+
+def load_entity_template(entity_type):
+    template_path = 'resources/entity_templates/{entity_type}_template.json'.format(entity_type=entity_type)
+    with open(template_path) as f:
+        template = json.load(f)
+
+    return template

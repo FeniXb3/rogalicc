@@ -69,3 +69,27 @@ def interact(character, target_cell, level_data):
     action = character[fields.INTERACTABLES][element_type]
 
     action(character, element, level_data)
+
+
+def set_name(character, name):
+    character[fields.NAME] = name
+
+
+def set_type(character, entity_type):
+    character[fields.TYPE] = entity_type
+
+
+def set_get_action_name(character, get_action_name_function):
+    character[fields.GET_ACTION_NAME] = get_action_name_function
+
+
+def set_position(character, position):
+    character[fields.POSITION] = copy.deepcopy(position)
+
+
+def add_interactable(character, interactable_type, interaction):
+    character[fields.INTERACTABLES][interactable_type] = interaction
+
+
+def add_walkable(character, cell_type):
+    character[fields.WALKABLES].append(cell_type)
