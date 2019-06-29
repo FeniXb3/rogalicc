@@ -40,7 +40,7 @@ def setup_directions():
 def load_signs():
     signs = {
         entity_types.PLAYER: "@",
-        cell_types.EMPTY: ".",
+        cell_types.STONE_FLOOR: ".",
         cell_types.WALL: "#",
     }
 

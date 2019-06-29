@@ -29,7 +29,7 @@ def create_player_character():
             }
         ],
         fields.WALKABLES: [
-            cell_types.EMPTY
+            cell_types.STONE_FLOOR
         ],
         fields.INTERACTABLES: {
             item_types.KEY: interactions.pick_up_item,
