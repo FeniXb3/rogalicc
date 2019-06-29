@@ -1,10 +1,10 @@
+from character import character_actions, character_fields as fields, entity_types, interactions
 from data import data_loading, templates
 from item import item_fields
 from item import item_types
+from level import level_actions, position_fields as pos, cell_types
 from obstacle import obstacle_fields, obstacle_types
 from player_interaction import player_input, display
-from character import character_actions, character_fields as fields, entity_types
-from level import level_actions, position_fields as pos, cell_types
 
 
 def main():
@@ -32,8 +32,8 @@ def create_player_character():
             cell_types.EMPTY
         ],
         fields.INTERACTABLES: {
-            item_types.KEY: character_actions.pick_up_item,
-            obstacle_types.DOOR: character_actions.try_opening_door
+            item_types.KEY: interactions.pick_up_item,
+            obstacle_types.DOOR: interactions.try_opening_door
         },
         fields.POSITION: {
             pos.X: 1,

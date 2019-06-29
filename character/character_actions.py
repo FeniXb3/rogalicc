@@ -1,7 +1,7 @@
 import copy
 
-from item import item_fields, item_types
-from level import cell_fields, level_actions
+from item import item_fields
+from level import cell_fields
 from character import character_fields as fields
 
 
@@ -69,14 +69,3 @@ def interact(character, target_cell, level_data):
     action = character[fields.INTERACTABLES][element_type]
 
     action(character, element, level_data)
-
-
-def pick_up_item(character, item, level_data):
-    add_to_inventory(character, item)
-    level_actions.remove_item(level_data, item)
-
-
-def try_opening_door(character, door, level_data):
-    key = next((item for item in character[fields.INVENTORY] if item[item_fields.TYPE] == item_types.KEY), None)
-    if key:
-        level_actions.remove_obstacle(level_data, door)
