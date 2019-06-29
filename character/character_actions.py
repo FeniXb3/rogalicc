@@ -125,3 +125,11 @@ def set_previous_position_to_actual(character):
 
 def find_in_inventory(character, item_type):
     return next((item for item in character[fields.INVENTORY] if item[item_fields.TYPE] == item_type), None)
+
+
+def get_previous_position(character):
+    return character[fields.PREVIOUS_POSITION]
+
+
+def get_type(character):
+    return character[fields.TYPE]

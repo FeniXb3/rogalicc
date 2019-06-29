@@ -1,4 +1,4 @@
-from character import character_fields, character_fields as fields
+from character import character_actions
 from item import item_fields
 from level import level_fields, cell_fields
 from data import data_loading
@@ -17,7 +17,7 @@ def refresh_view(data, view):
         obstacle = cell[cell_fields.OBSTACLE]
         item = cell[cell_fields.ITEM]
         if visitor:
-            view[y][x] = data_loading.get_sign_for(visitor[character_fields.TYPE])
+            view[y][x] = data_loading.get_sign_for(character_actions.get_type(visitor))
         elif obstacle:
             view[y][x] = data_loading.get_obstacle_sign_for(obstacle[obstacle_fields.TYPE])
         elif item:
@@ -34,10 +34,11 @@ def update_visitor(level_data, position, visitor):
 
 
 def place_character(character, level_data):
-    update_visitor(level_data, character[fields.POSITION], character)
+    update_visitor(level_data, character_actions.get_position(character), character)
 
-    if character[fields.PREVIOUS_POSITION]:
-        update_visitor(level_data, character[fields.PREVIOUS_POSITION], None)
+    previous_position = character_actions.get_previous_position(character)
+    if previous_position:
+        update_visitor(level_data, previous_position, None)
 
 
 def update_item(level_data, position, item):
