@@ -22,6 +22,7 @@ def create_player_character():
     player = {
         fields.NAME: "Eisenheim",
         fields.TYPE: entity_types.PLAYER,
+        fields.GET_ACTION_NAME: player_input.get_action_by_key,
         fields.INVENTORY: [
             {
                 item_fields.TYPE: item_types.RING,
@@ -91,16 +92,11 @@ def start_game(player):
 
     level_data, level_view = setup_level()
     directions = data_loading.setup_directions()
-    key_bindings = data_loading.setup_key_bindings()
 
     while True:
         render_updated_game_view(level_data, level_view, player)
 
-        key = player_input.getch()
-        if key not in key_bindings:
-            continue
-
-        action_name = key_bindings[key]
+        action_name = player[fields.GET_ACTION_NAME]()
         if action_name in directions:
             perform_character_frame(directions, action_name, level_data, player)
         elif action_name == action_names.QUIT:
