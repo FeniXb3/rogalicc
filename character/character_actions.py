@@ -93,3 +93,15 @@ def add_interactable(character, interactable_type, interaction):
 
 def add_walkable(character, cell_type):
     character[fields.WALKABLES].append(cell_type)
+
+
+def get_get_action_name_function(character):
+    return character[fields.GET_ACTION_NAME]
+
+
+def get_position(character):
+    return character[fields.POSITION]
+
+
+def get_inventory(character):
+    return character[fields.INVENTORY]

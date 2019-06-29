@@ -95,7 +95,8 @@ def start_game(player):
     while True:
         render_updated_game_view(level_data, level_view, player)
 
-        action_name = player[fields.GET_ACTION_NAME]()
+        get_action_name = character_actions.get_get_action_name_function(player)
+        action_name = get_action_name()
         if action_name in directions:
             perform_character_frame(directions, action_name, level_data, player)
         elif action_name == action_names.QUIT:
@@ -104,7 +105,8 @@ def start_game(player):
 
 def perform_character_frame(directions, key, level_data, player):
     direction = directions[key]
-    target_position = character_actions.calculate_target_position(player[fields.POSITION], direction)
+    position = character_actions.get_position(player)
+    target_position = character_actions.calculate_target_position(position, direction)
     target_cell = level_actions.get_cell_at(level_data, target_position)
     if character_actions.can_interact(player, target_cell):
         character_actions.interact(player, target_cell, level_data)
@@ -116,7 +118,7 @@ def render_updated_game_view(level_data, level_view, player):
     level_actions.place_character(player, level_data)
     level_actions.refresh_view(level_data, level_view)
     show_level(level_view)
-    show_inventory(player[fields.INVENTORY])
+    show_inventory(character_actions.get_inventory(player))
 
 
 def setup_level():
