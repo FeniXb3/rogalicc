@@ -6,8 +6,8 @@ from character import character_fields as fields
 
 
 def move(character, target_position):
-    character[fields.PREVIOUS_POSITION] = copy.deepcopy(character[fields.POSITION])
-    character[fields.POSITION] = copy.deepcopy(target_position)
+    set_previous_position_to_actual(character)
+    set_position(character, target_position)
 
 
 def calculate_target_position(base_position, direction):
@@ -24,6 +24,10 @@ def can_move(character, target_cell):
     if obstacle:
         return False
 
+    return is_walkable(character, target_cell)
+
+
+def is_walkable(character, target_cell):
     return target_cell[cell_fields.TYPE] in character[fields.WALKABLES]
 
 
@@ -51,6 +55,10 @@ def can_interact_with_field(character, target_cell, field):
     if not data:
         return False
 
+    return is_interactable(character, data)
+
+
+def is_interactable(character, data):
     return data[item_fields.TYPE] in character[fields.INTERACTABLES]
 
 
@@ -66,9 +74,13 @@ def get_interactable_element(cell):
 def interact(character, target_cell, level_data):
     element = get_interactable_element(target_cell)
     element_type = element[item_fields.TYPE]
-    action = character[fields.INTERACTABLES][element_type]
+    action = get_interaction_function(character, element_type)
 
     action(character, element, level_data)
+
+
+def get_interaction_function(character, element_type):
+    return character[fields.INTERACTABLES][element_type]
 
 
 def set_name(character, name):
@@ -105,3 +117,7 @@ def get_position(character):
 
 def get_inventory(character):
     return character[fields.INVENTORY]
+
+
+def set_previous_position_to_actual(character):
+    character[fields.PREVIOUS_POSITION] = copy.deepcopy(character[fields.POSITION])
