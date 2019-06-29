@@ -1,4 +1,4 @@
-from character import character_actions, character_fields as fields, entity_types, interactions
+from character import character_actions, character_fields as fields, entity_types, interactions, action_names
 from data import data_loading, templates
 from item import item_fields
 from item import item_types
@@ -91,15 +91,19 @@ def start_game(player):
 
     level_data, level_view = setup_level()
     directions = data_loading.setup_directions()
+    key_bindings = data_loading.setup_key_bindings()
 
     while True:
         render_updated_game_view(level_data, level_view, player)
 
         key = player_input.getch()
+        if key not in key_bindings:
+            continue
 
-        if key in directions:
-            perform_character_frame(directions, key, level_data, player)
-        elif key == "q":
+        action_name = key_bindings[key]
+        if action_name in directions:
+            perform_character_frame(directions, action_name, level_data, player)
+        elif action_name == action_names.QUIT:
             leave_game()
 
 

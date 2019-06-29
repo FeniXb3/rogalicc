@@ -1,0 +1,5 @@
+QUIT = "QUIT"
+RIGHT = "RIGHT"
+LEFT = "LEFT"
+DOWN = "DOWN"
+UP = "UP"

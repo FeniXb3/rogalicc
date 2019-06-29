@@ -1,4 +1,5 @@
 from character import entity_types
+from character import action_names
 from item import item_types
 from level import level_fields, cell_fields, position_fields as pos, cell_types, level_actions
 from obstacle import obstacle_types
@@ -16,19 +17,19 @@ def load_level():
 
 def setup_directions():
     directions = {
-        "w": {
+        action_names.UP: {
             pos.X: 0,
             pos.Y: -1
         },
-        "s": {
+        action_names.DOWN: {
             pos.X: 0,
             pos.Y: 1
         },
-        "a": {
+        action_names.LEFT: {
             pos.X: -1,
             pos.Y: 0
         },
-        "d": {
+        action_names.RIGHT: {
             pos.X: 1,
             pos.Y: 0
         },
@@ -121,3 +122,14 @@ def get_obstacle_sign_for(obstacle_type):
     signs = load_obstacle_signs()
 
     return signs[obstacle_type]
+
+
+def setup_key_bindings():
+    bindings = {
+        "w": action_names.UP,
+        "s": action_names.DOWN,
+        "a": action_names.LEFT,
+        "d": action_names.RIGHT,
+        "q": action_names.QUIT
+    }
+    return bindings
