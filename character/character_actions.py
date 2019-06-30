@@ -1,6 +1,6 @@
 import copy
 
-from item import item_fields
+from item import item_fields, item_actions
 from level import cell_fields
 from character import character_fields as fields
 
@@ -124,7 +124,7 @@ def set_previous_position_to_actual(character):
 
 
 def find_in_inventory(character, item_type):
-    return next((item for item in character[fields.INVENTORY] if item[item_fields.TYPE] == item_type), None)
+    return next((item for item in character[fields.INVENTORY] if item_actions.get_type(item) == item_type), None)
 
 
 def get_previous_position(character):
