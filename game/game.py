@@ -7,18 +7,18 @@ from obstacle import obstacle_fields, obstacle_types
 from player_interaction import display
 
 
-def run(get_action_name):
-    show_intro()
-    player = create_player_character(get_action_name)
-    start_game(player)
+def run(get_action_name, input_method):
+    show_intro(input_method)
+    player = create_player_character(input_method, get_action_name)
+    start_game(input_method, player)
 
 
-def show_intro():
-    display.show_screen_and_wait(templates.WELCOME)
+def show_intro(input_method):
+    display.show_screen_and_wait(input_method, templates.WELCOME)
 
 
-def create_player_character(get_action_name):
-    display.show_screen_and_wait(templates.CHARACTER_CREATION)
+def create_player_character(input_method, get_action_name):
+    display.show_screen_and_wait(input_method, templates.CHARACTER_CREATION)
 
     name = 'Eisenheim'
     entity_type = entity_types.PLAYER
@@ -44,24 +44,24 @@ def create_player_character(get_action_name):
     return player
 
 
-def start_game(player):
-    display.show_screen_and_wait(templates.GAME_START, player)
+def start_game(input_method, player):
+    display.show_screen_and_wait(input_method, templates.GAME_START, player)
 
     level_data, level_view = setup_level()
     directions = data_loading.setup_directions()
 
     while True:
-        perform_frame(directions, level_data, level_view, player)
+        perform_frame(input_method, directions, level_data, level_view, player)
 
 
-def perform_frame(directions, level_data, level_view, player):
+def perform_frame(input_method, directions, level_data, level_view, player):
     render_updated_game_view(level_data, level_view, player)
     get_action_name = character_actions.get_get_action_name_function(player)
     action_name = get_action_name()
     if action_name in directions:
         perform_character_frame(directions, action_name, level_data, player)
     elif action_name == action_names.QUIT:
-        leave_game()
+        leave_game(input_method)
 
 
 def setup_level():
@@ -90,8 +90,8 @@ def perform_character_frame(directions, key, level_data, player):
         character_actions.move(player, target_position)
 
 
-def leave_game():
-    display.show_screen_and_wait(templates.GOODBYE)
+def leave_game(input_method):
+    display.show_screen_and_wait(input_method, templates.GOODBYE)
     quit(0)
 
 
