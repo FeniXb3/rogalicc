@@ -4,12 +4,12 @@ from data import templates, data_loading
 from item import item_fields, item_types
 from level import level_actions, position_fields as pos
 from obstacle import obstacle_fields, obstacle_types
-from player_interaction import display, player_input
+from player_interaction import display
 
 
-def run():
+def run(get_action_name):
     show_intro()
-    player = create_player_character()
+    player = create_player_character(get_action_name)
     start_game(player)
 
 
@@ -17,12 +17,11 @@ def show_intro():
     display.show_screen_and_wait(templates.WELCOME)
 
 
-def create_player_character():
+def create_player_character(get_action_name):
     display.show_screen_and_wait(templates.CHARACTER_CREATION)
 
     name = 'Eisenheim'
     entity_type = entity_types.PLAYER
-    get_action_name = player_input.get_action_by_key
     position = {
         pos.X: 1,
         pos.Y: 3

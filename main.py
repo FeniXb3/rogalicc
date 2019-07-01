@@ -1,8 +1,9 @@
 from game.game import run
+from player_interaction.player_input import get_action_by_key
 
 
 def main():
-    run()
+    run(get_action_by_key)
 
 
 if __name__ == "__main__":
