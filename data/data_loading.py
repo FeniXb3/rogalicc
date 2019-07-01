@@ -1,4 +1,5 @@
 import json
+from queue import Queue
 
 from character import entity_types
 from character import action_names
@@ -16,6 +17,15 @@ def load_level():
             basic_view.append(row)
 
     return basic_view
+
+
+def load_action_sequence(sequence_name):
+    action_sequence = Queue()
+    with open(f'resources/test_data/test_action_sequences/{sequence_name}') as f:
+        for action_name in f:
+            action_sequence.put(action_name.strip())
+
+    return action_sequence
 
 
 def setup_directions():
