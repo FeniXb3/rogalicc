@@ -3,7 +3,8 @@ import json
 from character import entity_types
 from character import action_names
 from item import item_types
-from level import level_fields, cell_fields, position_fields as pos, cell_types, level_actions
+from level import level_fields, position_fields as pos, level_actions
+from cell import cell_fields, cell_types
 from obstacle import obstacle_types
 
 

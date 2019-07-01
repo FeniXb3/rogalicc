@@ -1,6 +1,7 @@
 from character import character_actions
+from cell import cell_fields
 from item import item_actions
-from level import level_fields, cell_fields
+from level import level_fields
 from data import data_loading
 from obstacle import obstacle_actions
 

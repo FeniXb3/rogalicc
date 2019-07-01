@@ -1,8 +1,9 @@
-from character import character_actions, character_fields as fields, entity_types, interactions, action_names
+from character import character_actions, entity_types, interactions, action_names
 from data import data_loading, templates
 from item import item_fields
 from item import item_types
-from level import level_actions, position_fields as pos, cell_types
+from level import level_actions, position_fields as pos
+from cell import cell_types
 from obstacle import obstacle_fields, obstacle_types
 from player_interaction import player_input, display
 

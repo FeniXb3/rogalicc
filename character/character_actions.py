@@ -1,7 +1,7 @@
 import copy
 
 from item import item_fields, item_actions
-from level import cell_fields
+from cell import cell_fields
 from character import character_fields as fields
 
 
