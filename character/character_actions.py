@@ -1,6 +1,6 @@
 import copy
 
-from item import item_fields, item_actions
+from item import item_actions
 from cell import cell_actions
 from character import character_fields as fields
 
@@ -57,7 +57,7 @@ def can_interact_with_field(character, get_action, cell):
 
 
 def is_interactable(character, data):
-    return data[item_fields.TYPE] in character[fields.INTERACTABLES]
+    return item_actions.get_type(data) in character[fields.INTERACTABLES]
 
 
 def get_interactable_element(cell):
@@ -71,7 +71,7 @@ def get_interactable_element(cell):
 
 def interact(character, target_cell, level_data):
     element = get_interactable_element(target_cell)
-    element_type = element[item_fields.TYPE]
+    element_type = item_actions.get_type(element)
     action = get_interaction_function(character, element_type)
 
     action(character, element, level_data)

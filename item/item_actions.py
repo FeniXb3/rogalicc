@@ -2,7 +2,6 @@ from item import item_fields
 
 
 def clear_position(item):
-
     item[item_fields.POSITION] = None
 
 
