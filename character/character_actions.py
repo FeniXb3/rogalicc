@@ -27,13 +27,16 @@ def can_move(character, target_cell):
     return is_walkable(character, target_cell)
 
 
+def get_walkables(character):
+    return character[fields.WALKABLES]
+
+
 def is_walkable(character, target_cell):
-    return cell_actions.get_type(target_cell) in character[fields.WALKABLES]
+    return cell_actions.get_type(target_cell) in get_walkables(character)
 
 
 def add_to_inventory(character, item):
-    inventory = character[fields.INVENTORY]
-    inventory.append(item)
+    get_inventory(character).append(item)
 
 
 def can_interact(character, target_cell):
@@ -57,7 +60,7 @@ def can_interact_with_field(character, get_action, cell):
 
 
 def is_interactable(character, data):
-    return item_actions.get_type(data) in character[fields.INTERACTABLES]
+    return item_actions.get_type(data) in get_interactables(character)
 
 
 def get_interactable_element(cell):
@@ -77,8 +80,12 @@ def interact(character, target_cell, level_data):
     action(character, element, level_data)
 
 
+def get_interactables(character):
+    return character[fields.INTERACTABLES]
+
+
 def get_interaction_function(character, element_type):
-    return character[fields.INTERACTABLES][element_type]
+    return get_interactables(character)[element_type]
 
 
 def set_name(character, name):
@@ -98,11 +105,11 @@ def set_position(character, position):
 
 
 def add_interactable(character, interactable_type, interaction):
-    character[fields.INTERACTABLES][interactable_type] = interaction
+    get_interactables(character)[interactable_type] = interaction
 
 
 def add_walkable(character, cell_type):
-    character[fields.WALKABLES].append(cell_type)
+    get_walkables(character).append(cell_type)
 
 
 def get_get_action_name_function(character):
@@ -118,11 +125,11 @@ def get_inventory(character):
 
 
 def set_previous_position_to_actual(character):
-    character[fields.PREVIOUS_POSITION] = copy.deepcopy(character[fields.POSITION])
+    character[fields.PREVIOUS_POSITION] = copy.deepcopy(get_position(character))
 
 
 def find_in_inventory(character, item_type):
-    return next((item for item in character[fields.INVENTORY] if item_actions.get_type(item) == item_type), None)
+    return next((item for item in get_inventory(character) if item_actions.get_type(item) == item_type), None)
 
 
 def get_previous_position(character):
