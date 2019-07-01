@@ -2,7 +2,7 @@ from character import character_actions
 from item import item_actions
 from level import level_fields, cell_fields
 from data import data_loading
-from obstacle import obstacle_fields
+from obstacle import obstacle_actions
 
 
 def get_cell_at(level_data, position):
@@ -19,7 +19,7 @@ def refresh_view(data, view):
         if visitor:
             view[y][x] = data_loading.get_sign_for(character_actions.get_type(visitor))
         elif obstacle:
-            view[y][x] = data_loading.get_obstacle_sign_for(obstacle[obstacle_fields.TYPE])
+            view[y][x] = data_loading.get_obstacle_sign_for(obstacle_actions.get_type(obstacle))
         elif item:
             view[y][x] = data_loading.get_item_sign_for(item_actions.get_type(item))
         else:
@@ -68,6 +68,6 @@ def queue_cell_update(level_data, cell_data):
 
 
 def remove_obstacle(level_data, obstacle):
-    position = obstacle[obstacle_fields.POSITION]
-    obstacle[obstacle_fields.POSITION] = None
+    position = obstacle_actions.get_position(obstacle)
+    obstacle_actions.clear_position(obstacle)
     update_obstacle(level_data, position, None)
