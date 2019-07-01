@@ -52,14 +52,17 @@ def start_game(player):
     directions = data_loading.setup_directions()
 
     while True:
-        render_updated_game_view(level_data, level_view, player)
+        perform_frame(directions, level_data, level_view, player)
 
-        get_action_name = character_actions.get_get_action_name_function(player)
-        action_name = get_action_name()
-        if action_name in directions:
-            perform_character_frame(directions, action_name, level_data, player)
-        elif action_name == action_names.QUIT:
-            leave_game()
+
+def perform_frame(directions, level_data, level_view, player):
+    render_updated_game_view(level_data, level_view, player)
+    get_action_name = character_actions.get_get_action_name_function(player)
+    action_name = get_action_name()
+    if action_name in directions:
+        perform_character_frame(directions, action_name, level_data, player)
+    elif action_name == action_names.QUIT:
+        leave_game()
 
 
 def setup_level():
