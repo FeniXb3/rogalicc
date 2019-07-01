@@ -1,7 +1,7 @@
 import copy
 
 from item import item_fields, item_actions
-from cell import cell_fields
+from cell import cell_actions
 from character import character_fields as fields
 
 
@@ -20,7 +20,7 @@ def calculate_target_position(base_position, direction):
 
 
 def can_move(character, target_cell):
-    obstacle = target_cell[cell_fields.OBSTACLE]
+    obstacle = cell_actions.get_obstacle(target_cell)
     if obstacle:
         return False
 
@@ -28,7 +28,7 @@ def can_move(character, target_cell):
 
 
 def is_walkable(character, target_cell):
-    return target_cell[cell_fields.TYPE] in character[fields.WALKABLES]
+    return cell_actions.get_type(target_cell) in character[fields.WALKABLES]
 
 
 def add_to_inventory(character, item):
@@ -41,17 +41,15 @@ def can_interact(character, target_cell):
 
 
 def can_interact_with_item(character, target_cell):
-    field = cell_fields.ITEM
-    return can_interact_with_field(character, target_cell, field)
+    return can_interact_with_field(character, cell_actions.get_item, target_cell)
 
 
 def can_interact_with_obstacle(character, target_cell):
-    field = cell_fields.OBSTACLE
-    return can_interact_with_field(character, target_cell, field)
+    return can_interact_with_field(character, cell_actions.get_obstacle, target_cell)
 
 
-def can_interact_with_field(character, target_cell, field):
-    data = target_cell[field]
+def can_interact_with_field(character, get_action, cell):
+    data = get_action(cell)
     if not data:
         return False
 
@@ -63,8 +61,8 @@ def is_interactable(character, data):
 
 
 def get_interactable_element(cell):
-    obstacle = cell[cell_fields.OBSTACLE]
-    item = cell[cell_fields.ITEM]
+    obstacle = cell_actions.get_obstacle(cell)
+    item = cell_actions.get_item(cell)
     if obstacle:
         return obstacle
     if item:

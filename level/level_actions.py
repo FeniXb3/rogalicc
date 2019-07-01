@@ -1,5 +1,5 @@
 from character import character_actions
-from cell import cell_fields
+from cell import cell_actions
 from item import item_actions
 from level import level_fields
 from data import data_loading
@@ -13,10 +13,10 @@ def get_cell_at(level_data, position):
 
 def refresh_view(data, view):
     for cell in data[level_fields.UPDATES]:
-        x, y = cell[cell_fields.POSITION].values()
-        visitor = cell[cell_fields.VISITOR]
-        obstacle = cell[cell_fields.OBSTACLE]
-        item = cell[cell_fields.ITEM]
+        x, y = cell_actions.get_position(cell).values()
+        visitor = cell_actions.get_visitor(cell)
+        obstacle = cell_actions.get_obstacle(cell)
+        item = cell_actions.get_item(cell)
         if visitor:
             view[y][x] = data_loading.get_sign_for(character_actions.get_type(visitor))
         elif obstacle:
@@ -24,14 +24,13 @@ def refresh_view(data, view):
         elif item:
             view[y][x] = data_loading.get_item_sign_for(item_actions.get_type(item))
         else:
-            view[y][x] = data_loading.get_sign_for(cell[cell_fields.TYPE])
+            view[y][x] = data_loading.get_sign_for(cell_actions.get_type(cell))
 
     data[level_fields.UPDATES] = []
 
 
 def update_visitor(level_data, position, visitor):
-    field = cell_fields.VISITOR
-    update_cell_field(level_data, position, field, visitor)
+    update_cell_field(level_data, position, cell_actions.set_visitor, visitor)
 
 
 def place_character(character, level_data):
@@ -43,8 +42,7 @@ def place_character(character, level_data):
 
 
 def update_item(level_data, position, item):
-    field = cell_fields.ITEM
-    update_cell_field(level_data, position, field, item)
+    update_cell_field(level_data, position, cell_actions.set_item, item)
 
 
 def remove_item(level_data, item):
@@ -54,13 +52,12 @@ def remove_item(level_data, item):
 
 
 def update_obstacle(level_data, position, obstacle):
-    field = cell_fields.OBSTACLE
-    update_cell_field(level_data, position, field, obstacle)
+    update_cell_field(level_data, position, cell_actions.set_obstacle, obstacle)
 
 
-def update_cell_field(level_data, position, field, data):
+def update_cell_field(level_data, position, update_action, data):
     cell = get_cell_at(level_data, position)
-    cell[field] = data
+    update_action(cell, data)
     queue_cell_update(level_data, cell)
 
 
