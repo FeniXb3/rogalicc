@@ -44,9 +44,16 @@ def setup_directions():
 
 def load_signs():
     signs = {
-        entity_types.PLAYER: "@",
         cell_types.STONE_FLOOR: ".",
-        cell_types.WALL: "#",
+        cell_types.WALL: "#"
+    }
+
+    return signs
+
+
+def load_visitor_signs():
+    signs = {
+        entity_types.PLAYER: "@"
     }
 
     return signs
@@ -90,7 +97,7 @@ def parse_cell(cell_sign, x, y):
     return cell
 
 
-def get_sign_for(entity_type):
+def get_cell_sign_for(entity_type):
     signs = load_signs()
 
     return signs[entity_type]
@@ -135,3 +142,9 @@ def load_entity_template(entity_type):
         template = json.load(f)
 
     return template
+
+
+def get_visitor_sign_for(visitor_type):
+    signs = load_visitor_signs()
+
+    return signs[visitor_type]

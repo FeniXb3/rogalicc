@@ -26,13 +26,13 @@ def refresh_view(data, view):
         obstacle = cell_actions.get_obstacle(cell)
         item = cell_actions.get_item(cell)
         if visitor:
-            view[y][x] = data_loading.get_sign_for(character_actions.get_type(visitor))
+            view[y][x] = data_loading.get_visitor_sign_for(character_actions.get_type(visitor))
         elif obstacle:
             view[y][x] = data_loading.get_obstacle_sign_for(obstacle_actions.get_type(obstacle))
         elif item:
             view[y][x] = data_loading.get_item_sign_for(item_actions.get_type(item))
         else:
-            view[y][x] = data_loading.get_sign_for(cell_actions.get_type(cell))
+            view[y][x] = data_loading.get_cell_sign_for(cell_actions.get_type(cell))
 
     clear_updates(data)
 
