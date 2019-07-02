@@ -68,10 +68,7 @@ def get_cell_type_by_sign(cell_sign):
 
 
 def parse_level_data(level_raw_view):
-    level_data = {
-        level_fields.CELLS: [],
-        level_fields.UPDATES: []
-    }
+    level_data = load_entity_template('level')
     level_view = []
 
     for y, row in enumerate(level_raw_view):
