@@ -24,8 +24,7 @@ def create_player_character(input_method, get_action_name):
     name = 'Eisenheim'
     entity_type = entity_types.PLAYER
     position = position_actions.make_position(1, 3)
-    ring = data_loading.load_entity_template('item')
-    item_actions.set_type(ring, item_types.RING)
+    ring = item_actions.create_ring()
 
     player = data_loading.load_entity_template("character")
     character_actions.set_name(player, name)
@@ -93,8 +92,7 @@ def leave_game(input_method):
 
 def add_key_to_level(level_data):
     position = position_actions.make_position(1, 2)
-    key_data = data_loading.load_entity_template('item')
-    item_actions.set_type(key_data, item_types.KEY)
+    key_data = item_actions.create_key()
     item_actions.set_position(key_data, position)
 
     level_actions.update_item(level_data, position, key_data)
