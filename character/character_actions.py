@@ -2,7 +2,7 @@ import copy
 
 from character import character_properties
 from data import data_loading
-from item import item_actions
+from item import item_properties
 from cell import cell_actions, cell_properties
 from character import character_fields as fields, entity_types
 
@@ -49,12 +49,12 @@ def can_interact_with_field(character, get_action, cell):
 
 
 def is_interactable(character, data):
-    return item_actions.get_type(data) in get_interactables(character)
+    return item_properties.get_type(data) in get_interactables(character)
 
 
 def interact(character, target_cell, level_data):
     element = cell_actions.get_interactable_element(target_cell)
-    element_type = item_actions.get_type(element)
+    element_type = item_properties.get_type(element)
     action = get_interaction_function(character, element_type)
 
     action(character, element, level_data)
@@ -81,7 +81,7 @@ def set_previous_position_to_actual(character):
 
 
 def find_in_inventory(character, item_type):
-    return next((item for item in character_properties.get_inventory(character) if item_actions.get_type(item) == item_type), None)
+    return next((item for item in character_properties.get_inventory(character) if item_properties.get_type(item) == item_type), None)
 
 
 def create_player():

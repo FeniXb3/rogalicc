@@ -2,7 +2,7 @@ import character.character_properties
 from cell import cell_types
 from character import character_actions, action_names, interactions
 from data import templates, data_loading
-from item import item_types, item_actions
+from item import item_types, item_actions, item_properties
 from level import level_actions
 from position import position_actions
 from obstacle import obstacle_types, obstacle_actions
@@ -92,7 +92,7 @@ def leave_game(input_method):
 def add_key_to_level(level_data):
     position = position_actions.make_position(1, 2)
     key_data = item_actions.create_key()
-    item_actions.set_position(key_data, position)
+    item_properties.set_position(key_data, position)
 
     level_actions.update_item(level_data, position, key_data)
 

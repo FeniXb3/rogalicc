@@ -1,6 +1,6 @@
 from cell import cell_properties
 from character import character_properties
-from item import item_actions
+from item import item_actions, item_properties
 from level import level_fields
 from data import signs
 from obstacle import obstacle_actions
@@ -30,7 +30,7 @@ def refresh_view(data, view):
         elif obstacle:
             view[y][x] = signs.get_obstacle_sign_for(obstacle_actions.get_type(obstacle))
         elif item:
-            view[y][x] = signs.get_item_sign_for(item_actions.get_type(item))
+            view[y][x] = signs.get_item_sign_for(item_properties.get_type(item))
         else:
             view[y][x] = signs.get_cell_sign_for(cell_properties.get_type(cell))
 
@@ -54,7 +54,7 @@ def update_item(level_data, position, item):
 
 
 def remove_item(level_data, item):
-    position = item_actions.get_position(item)
+    position = item_properties.get_position(item)
     item_actions.clear_position(item)
     update_item(level_data, position, None)
 
