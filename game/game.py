@@ -75,7 +75,7 @@ def render_updated_game_view(level_data, level_view, player):
 def perform_character_frame(directions, key, level_data, player):
     direction = directions[key]
     position = character_actions.get_position(player)
-    target_position = character_actions.calculate_target_position(position, direction)
+    target_position = position_actions.calculate_target_position(position, direction)
     target_cell = level_actions.get_cell_at(level_data, target_position)
     if character_actions.can_interact(player, target_cell):
         character_actions.interact(player, target_cell, level_data)
