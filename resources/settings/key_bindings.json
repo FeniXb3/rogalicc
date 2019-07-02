@@ -1,0 +1,7 @@
+{
+    "w": "UP",
+    "s": "DOWN",
+    "a": "LEFT",
+    "d": "RIGHT",
+    "q": "QUIT"
+}

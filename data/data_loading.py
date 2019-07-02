@@ -125,13 +125,7 @@ def get_obstacle_sign_for(obstacle_type):
 
 
 def setup_key_bindings():
-    bindings = {
-        "w": action_names.UP,
-        "s": action_names.DOWN,
-        "a": action_names.LEFT,
-        "d": action_names.RIGHT,
-        "q": action_names.QUIT
-    }
+    bindings = load_setting('key_bindings')
     return bindings
 
 
