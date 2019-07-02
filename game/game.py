@@ -1,7 +1,7 @@
 from cell import cell_types
 from character import character_actions, action_names, entity_types, interactions
 from data import templates, data_loading
-from item import item_fields, item_types
+from item import item_types, item_actions
 from level import level_actions
 from position import position_actions
 from obstacle import obstacle_fields, obstacle_types
@@ -24,10 +24,8 @@ def create_player_character(input_method, get_action_name):
     name = 'Eisenheim'
     entity_type = entity_types.PLAYER
     position = position_actions.make_position(1, 3)
-    ring = {
-        item_fields.TYPE: item_types.RING,
-        item_fields.POSITION: None
-    }
+    ring = data_loading.load_entity_template('item')
+    item_actions.set_type(ring, item_types.RING)
 
     player = data_loading.load_entity_template("character")
     character_actions.set_name(player, name)
@@ -95,10 +93,9 @@ def leave_game(input_method):
 
 def add_key_to_level(level_data):
     position = position_actions.make_position(1, 2)
-    key_data = {
-        item_fields.TYPE: item_types.KEY,
-        item_fields.POSITION: position
-    }
+    key_data = data_loading.load_entity_template('item')
+    item_actions.set_type(key_data, item_types.KEY)
+    item_actions.set_position(key_data, position)
 
     level_actions.update_item(level_data, position, key_data)
 
