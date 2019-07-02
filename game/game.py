@@ -61,8 +61,8 @@ def perform_frame(input_method, directions, level_data, level_view, player):
 def setup_level():
     level_raw_view = data_loading.load_level()
     level_data, level_view = data_loading.parse_level_data(level_raw_view)
-    add_key_to_level(level_data)
-    add_door_to_level(level_data)
+    add_key_to_level_at(level_data, 1, 2)
+    add_door_to_level_at(level_data, 10, 7)
     return level_data, level_view
 
 
@@ -89,16 +89,16 @@ def leave_game(input_method):
     quit(0)
 
 
-def add_key_to_level(level_data):
-    position = position_actions.make_position(1, 2)
+def add_key_to_level_at(level_data, x, y):
+    position = position_actions.make_position(x, y)
     key_data = item_actions.create_key()
     item_properties.set_position(key_data, position)
 
     level_actions.update_item(level_data, position, key_data)
 
 
-def add_door_to_level(level_data):
-    position = position_actions.make_position(10, 7)
+def add_door_to_level_at(level_data, x, y):
+    position = position_actions.make_position(x, y)
     door = obstacle_actions.create_door()
     obstacle_properties.set_position(door, position)
 
