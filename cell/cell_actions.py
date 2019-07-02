@@ -1,3 +1,5 @@
+import copy
+
 from cell import cell_fields
 
 
@@ -38,4 +40,4 @@ def set_type(cell, cell_type):
 
 
 def set_position(cell, position):
-    cell[cell_fields.POSITION] = position
+    cell[cell_fields.POSITION] = copy.deepcopy(position)

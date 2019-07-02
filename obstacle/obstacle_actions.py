@@ -1,3 +1,5 @@
+import copy
+
 from data import data_loading
 from obstacle import obstacle_fields, obstacle_types
 
@@ -25,4 +27,4 @@ def create_door():
 
 
 def set_position(obstacle, position):
-    obstacle[obstacle_fields.POSITION] = position
+    obstacle[obstacle_fields.POSITION] = copy.deepcopy(position)

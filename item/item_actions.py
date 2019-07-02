@@ -1,3 +1,5 @@
+import copy
+
 from data import data_loading
 from item import item_fields, item_types
 
@@ -19,7 +21,7 @@ def set_type(item, item_type):
 
 
 def set_position(item, position):
-    item[item_fields.POSITION] = position
+    item[item_fields.POSITION] = copy.deepcopy(position)
 
 
 def create_ring():
