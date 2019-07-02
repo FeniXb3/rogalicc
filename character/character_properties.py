@@ -41,3 +41,7 @@ def get_type(character):
 
 def get_walkables(character):
     return character[fields.WALKABLES]
+
+
+def get_interactables(character):
+    return character[fields.INTERACTABLES]
