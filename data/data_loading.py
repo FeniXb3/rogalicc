@@ -1,12 +1,8 @@
 import json
 from queue import Queue
 
-from character import entity_types
-from character import action_names
-from item import item_types
 from level import position_fields as pos, level_actions
-from cell import cell_types, cell_actions
-from obstacle import obstacle_types
+from cell import cell_actions
 
 
 def load_level():
