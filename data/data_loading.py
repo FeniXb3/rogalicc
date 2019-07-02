@@ -28,25 +28,16 @@ def load_action_sequence(sequence_name):
     return action_sequence
 
 
+def load_setting(setting_name):
+    setting_path = f'resources/settings/{setting_name}.json'
+    with open(setting_path) as f:
+        setting = json.load(f)
+
+    return setting
+
+
 def setup_directions():
-    directions = {
-        action_names.UP: {
-            pos.X: 0,
-            pos.Y: -1
-        },
-        action_names.DOWN: {
-            pos.X: 0,
-            pos.Y: 1
-        },
-        action_names.LEFT: {
-            pos.X: -1,
-            pos.Y: 0
-        },
-        action_names.RIGHT: {
-            pos.X: 1,
-            pos.Y: 0
-        },
-    }
+    directions = load_setting('directions')
 
     return directions
 
