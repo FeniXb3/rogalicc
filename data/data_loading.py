@@ -102,11 +102,7 @@ def get_cell_sign_for(entity_type):
 
 
 def load_item_signs():
-    signs = {
-        item_types.KEY: "k"
-    }
-
-    return signs
+    return load_signs('item')
 
 
 def get_item_sign_for(item_type):
