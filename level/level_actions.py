@@ -26,7 +26,7 @@ def refresh_view(data, view):
         obstacle = cell_actions.get_obstacle(cell)
         item = cell_actions.get_item(cell)
         if visitor:
-            view[y][x] = data_loading.get_visitor_sign_for(character_actions.get_type(visitor))
+            view[y][x] = data_loading.get_character_sign_for(character_actions.get_type(visitor))
         elif obstacle:
             view[y][x] = data_loading.get_obstacle_sign_for(obstacle_actions.get_type(obstacle))
         elif item:

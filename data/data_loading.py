@@ -49,7 +49,7 @@ def load_cell_signs():
     return load_signs('cell')
 
 
-def load_visitor_signs():
+def load_character_signs():
     return load_signs('character')
 
 
@@ -126,7 +126,7 @@ def load_entity_template(entity_type):
     return load_json_resource('entity_templates', entity_type)
 
 
-def get_visitor_sign_for(visitor_type):
-    signs = load_visitor_signs()
+def get_character_sign_for(character_type):
+    signs = load_character_signs()
 
-    return signs[visitor_type]
+    return signs[character_type]
