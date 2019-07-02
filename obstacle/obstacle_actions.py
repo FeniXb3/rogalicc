@@ -1,4 +1,5 @@
-from obstacle import obstacle_fields
+from data import data_loading
+from obstacle import obstacle_fields, obstacle_types
 
 
 def get_type(obstacle):
@@ -11,3 +12,17 @@ def get_position(obstacle):
 
 def clear_position(obstacle):
     obstacle[obstacle_fields.POSITION] = None
+
+
+def set_type(obstacle, obstacle_type):
+    obstacle[obstacle_fields.TYPE] = obstacle_type
+
+
+def create_door():
+    door = data_loading.load_entity_template('obstacle')
+    set_type(door, obstacle_types.DOOR)
+    return door
+
+
+def set_position(obstacle, position):
+    obstacle[obstacle_fields.POSITION] = position
