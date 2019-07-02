@@ -1,8 +1,9 @@
 import copy
 
+from data import data_loading
 from item import item_actions
 from cell import cell_actions
-from character import character_fields as fields
+from character import character_fields as fields, entity_types
 
 
 def move(character, target_position):
@@ -138,3 +139,9 @@ def get_previous_position(character):
 
 def get_type(character):
     return character[fields.TYPE]
+
+
+def create_player():
+    player = data_loading.load_entity_template("character")
+    set_type(player, entity_types.PLAYER)
+    return player

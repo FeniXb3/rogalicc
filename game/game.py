@@ -1,5 +1,5 @@
 from cell import cell_types
-from character import character_actions, action_names, entity_types, interactions
+from character import character_actions, action_names, interactions
 from data import templates, data_loading
 from item import item_types, item_actions
 from level import level_actions
@@ -22,13 +22,11 @@ def create_player_character(input_method, get_action_name):
     display.show_screen_and_wait(input_method, templates.CHARACTER_CREATION)
 
     name = 'Eisenheim'
-    entity_type = entity_types.PLAYER
     position = position_actions.make_position(1, 3)
     ring = item_actions.create_ring()
 
-    player = data_loading.load_entity_template("character")
+    player = character_actions.create_player()
     character_actions.set_name(player, name)
-    character_actions.set_type(player, entity_type)
     character_actions.set_get_action_name(player, get_action_name)
     character_actions.add_walkable(player, cell_types.STONE_FLOOR)
     character_actions.add_interactable(player, item_types.KEY, interactions.pick_up_item)
