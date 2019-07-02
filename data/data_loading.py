@@ -4,7 +4,7 @@ from queue import Queue
 from character import entity_types
 from character import action_names
 from item import item_types
-from level import level_fields, position_fields as pos, level_actions
+from level import position_fields as pos, level_actions
 from cell import cell_types, cell_actions
 from obstacle import obstacle_types
 
@@ -73,7 +73,7 @@ def parse_level_data(level_raw_view):
 
     for y, row in enumerate(level_raw_view):
         data_row = []
-        level_data[level_fields.CELLS].append(data_row)
+        level_actions.get_cells(level_data).append(data_row)
         view_row = []
         level_view.append(view_row)
         for x, cell in enumerate(row):

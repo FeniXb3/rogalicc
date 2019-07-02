@@ -8,11 +8,19 @@ from obstacle import obstacle_actions
 
 def get_cell_at(level_data, position):
     x, y = position.values()
-    return level_data[level_fields.CELLS][y][x]
+    return get_cells(level_data)[y][x]
+
+
+def get_updates(level_data):
+    return level_data[level_fields.UPDATES]
+
+
+def clear_updates(level_data):
+    level_data[level_fields.UPDATES] = []
 
 
 def refresh_view(data, view):
-    for cell in data[level_fields.UPDATES]:
+    for cell in get_updates(data):
         x, y = cell_actions.get_position(cell).values()
         visitor = cell_actions.get_visitor(cell)
         obstacle = cell_actions.get_obstacle(cell)
@@ -26,7 +34,7 @@ def refresh_view(data, view):
         else:
             view[y][x] = data_loading.get_sign_for(cell_actions.get_type(cell))
 
-    data[level_fields.UPDATES] = []
+    clear_updates(data)
 
 
 def update_visitor(level_data, position, visitor):
@@ -69,3 +77,7 @@ def remove_obstacle(level_data, obstacle):
     position = obstacle_actions.get_position(obstacle)
     obstacle_actions.clear_position(obstacle)
     update_obstacle(level_data, position, None)
+
+
+def get_cells(level_data):
+    return level_data[level_fields.CELLS]
