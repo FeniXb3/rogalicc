@@ -64,17 +64,8 @@ def is_interactable(character, data):
     return item_actions.get_type(data) in get_interactables(character)
 
 
-def get_interactable_element(cell):
-    obstacle = cell_actions.get_obstacle(cell)
-    item = cell_actions.get_item(cell)
-    if obstacle:
-        return obstacle
-    if item:
-        return item
-
-
 def interact(character, target_cell, level_data):
-    element = get_interactable_element(target_cell)
+    element = cell_actions.get_interactable_element(target_cell)
     element_type = item_actions.get_type(element)
     action = get_interaction_function(character, element_type)
 

@@ -41,3 +41,12 @@ def set_type(cell, cell_type):
 
 def set_position(cell, position):
     cell[cell_fields.POSITION] = copy.deepcopy(position)
+
+
+def get_interactable_element(cell):
+    obstacle = get_obstacle(cell)
+    item = get_item(cell)
+    if obstacle:
+        return obstacle
+    if item:
+        return item
