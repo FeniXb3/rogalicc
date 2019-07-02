@@ -4,7 +4,7 @@ from item import item_actions, item_properties
 from level import level_fields
 from data import signs
 from level import level_properties
-from obstacle import obstacle_actions
+from obstacle import obstacle_actions, obstacle_properties
 
 
 def get_cell_at(level_data, position):
@@ -25,7 +25,7 @@ def refresh_view(data, view):
         if visitor:
             view[y][x] = signs.get_character_sign_for(character_properties.get_type(visitor))
         elif obstacle:
-            view[y][x] = signs.get_obstacle_sign_for(obstacle_actions.get_type(obstacle))
+            view[y][x] = signs.get_obstacle_sign_for(obstacle_properties.get_type(obstacle))
         elif item:
             view[y][x] = signs.get_item_sign_for(item_properties.get_type(item))
         else:
@@ -71,7 +71,7 @@ def queue_cell_update(level_data, cell_data):
 
 
 def remove_obstacle(level_data, obstacle):
-    position = obstacle_actions.get_position(obstacle)
+    position = obstacle_properties.get_position(obstacle)
     obstacle_actions.clear_position(obstacle)
     update_obstacle(level_data, position, None)
 

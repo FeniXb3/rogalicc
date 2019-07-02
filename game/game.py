@@ -5,7 +5,7 @@ from data import templates, data_loading
 from item import item_types, item_actions, item_properties
 from level import level_actions
 from position import position_actions
-from obstacle import obstacle_types, obstacle_actions
+from obstacle import obstacle_types, obstacle_actions, obstacle_properties
 from player_interaction import display
 
 
@@ -100,7 +100,7 @@ def add_key_to_level(level_data):
 def add_door_to_level(level_data):
     position = position_actions.make_position(10, 7)
     door = obstacle_actions.create_door()
-    obstacle_actions.set_position(door, position)
+    obstacle_properties.set_position(door, position)
 
     level_actions.update_obstacle(level_data, position, door)
 
