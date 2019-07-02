@@ -1,10 +1,10 @@
 import json
 from queue import Queue
 
+from cell import cell_properties
 from data import signs
 from level import level_actions
 from position import position_actions
-from cell import cell_actions
 
 
 def load_level():
@@ -66,8 +66,8 @@ def parse_cell(cell_sign, x, y):
 
     cell_type = signs.get_cell_type_by_sign(cell_sign)
     cell = load_entity_template('cell')
-    cell_actions.set_type(cell, cell_type)
-    cell_actions.set_position(cell, position)
+    cell_properties.set_type(cell, cell_type)
+    cell_properties.set_position(cell, position)
 
     return cell
 

@@ -3,7 +3,7 @@ import copy
 from character import character_properties
 from data import data_loading
 from item import item_actions
-from cell import cell_actions
+from cell import cell_actions, cell_properties
 from character import character_fields as fields, entity_types
 
 
@@ -13,7 +13,7 @@ def move(character, target_position):
 
 
 def can_move(character, target_cell):
-    obstacle = cell_actions.get_obstacle(target_cell)
+    obstacle = cell_properties.get_obstacle(target_cell)
     if obstacle:
         return False
 
@@ -21,7 +21,7 @@ def can_move(character, target_cell):
 
 
 def is_walkable(character, target_cell):
-    return cell_actions.get_type(target_cell) in character_properties.get_walkables(character)
+    return cell_properties.get_type(target_cell) in character_properties.get_walkables(character)
 
 
 def add_to_inventory(character, item):
@@ -33,11 +33,11 @@ def can_interact(character, target_cell):
 
 
 def can_interact_with_item(character, target_cell):
-    return can_interact_with_field(character, cell_actions.get_item, target_cell)
+    return can_interact_with_field(character, cell_properties.get_item, target_cell)
 
 
 def can_interact_with_obstacle(character, target_cell):
-    return can_interact_with_field(character, cell_actions.get_obstacle, target_cell)
+    return can_interact_with_field(character, cell_properties.get_obstacle, target_cell)
 
 
 def can_interact_with_field(character, get_action, cell):
