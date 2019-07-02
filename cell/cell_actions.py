@@ -31,3 +31,11 @@ def set_obstacle(cell, obstacle):
 
 def set_visitor(cell, visitor):
     cell[cell_fields.VISITOR] = visitor
+
+
+def set_type(cell, cell_type):
+    cell[cell_fields.TYPE] = cell_type
+
+
+def set_position(cell, position):
+    cell[cell_fields.POSITION] = position

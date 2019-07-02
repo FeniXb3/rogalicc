@@ -5,7 +5,7 @@ from character import entity_types
 from character import action_names
 from item import item_types
 from level import level_fields, position_fields as pos, level_actions
-from cell import cell_fields, cell_types
+from cell import cell_types, cell_actions
 from obstacle import obstacle_types
 
 
@@ -88,19 +88,18 @@ def parse_level_data(level_raw_view):
     return level_data, level_view
 
 
-def parse_cell(cell, x, y):
-    cell_type = get_cell_type_by_sign(cell)
-    cell_data = {
-        cell_fields.TYPE: cell_type,
-        cell_fields.POSITION: {
-            pos.X: x,
-            pos.Y: y
-        },
-        cell_fields.VISITOR: None,
-        cell_fields.ITEM: None,
-        cell_fields.OBSTACLE: None
+def parse_cell(cell_sign, x, y):
+    position = {
+        pos.X: x,
+        pos.Y: y
     }
-    return cell_data
+
+    cell_type = get_cell_type_by_sign(cell_sign)
+    cell = load_entity_template('cell')
+    cell_actions.set_type(cell, cell_type)
+    cell_actions.set_position(cell, position)
+
+    return cell
 
 
 def get_sign_for(entity_type):
