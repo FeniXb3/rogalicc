@@ -1,5 +1,5 @@
-from character import character_actions
 from cell import cell_actions
+from character import character_properties
 from item import item_actions
 from level import level_fields
 from data import signs
@@ -26,7 +26,7 @@ def refresh_view(data, view):
         obstacle = cell_actions.get_obstacle(cell)
         item = cell_actions.get_item(cell)
         if visitor:
-            view[y][x] = signs.get_character_sign_for(character_actions.get_type(visitor))
+            view[y][x] = signs.get_character_sign_for(character_properties.get_type(visitor))
         elif obstacle:
             view[y][x] = signs.get_obstacle_sign_for(obstacle_actions.get_type(obstacle))
         elif item:
@@ -42,9 +42,9 @@ def update_visitor(level_data, position, visitor):
 
 
 def place_character(character, level_data):
-    update_visitor(level_data, character_actions.get_position(character), character)
+    update_visitor(level_data, character_properties.get_position(character), character)
 
-    previous_position = character_actions.get_previous_position(character)
+    previous_position = character_properties.get_previous_position(character)
     if previous_position:
         update_visitor(level_data, previous_position, None)
 
