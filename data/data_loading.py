@@ -116,11 +116,7 @@ def get_item_sign_for(item_type):
 
 
 def load_obstacle_signs():
-    signs = {
-        obstacle_types.DOOR: "+"
-    }
-
-    return signs
+    return load_signs('obstacle')
 
 
 def get_obstacle_sign_for(obstacle_type):
