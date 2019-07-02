@@ -54,11 +54,7 @@ def load_cell_signs():
 
 
 def load_visitor_signs():
-    signs = {
-        entity_types.PLAYER: "@"
-    }
-
-    return signs
+    return load_signs('character')
 
 
 def get_cell_type_by_sign(cell_sign):
