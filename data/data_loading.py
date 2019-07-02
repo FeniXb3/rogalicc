@@ -45,13 +45,12 @@ def setup_directions():
     return directions
 
 
-def load_signs():
-    signs = {
-        cell_types.STONE_FLOOR: ".",
-        cell_types.WALL: "#"
-    }
+def load_signs(signs_type):
+    return load_json_resource('signs', signs_type)
 
-    return signs
+
+def load_cell_signs():
+    return load_signs('cell')
 
 
 def load_visitor_signs():
@@ -63,7 +62,7 @@ def load_visitor_signs():
 
 
 def get_cell_type_by_sign(cell_sign):
-    for cell_type, sign in load_signs().items():
+    for cell_type, sign in load_cell_signs().items():
         if sign == cell_sign:
             return cell_type
 
@@ -101,7 +100,7 @@ def parse_cell(cell_sign, x, y):
 
 
 def get_cell_sign_for(entity_type):
-    signs = load_signs()
+    signs = load_cell_signs()
 
     return signs[entity_type]
 
