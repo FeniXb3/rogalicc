@@ -2,7 +2,8 @@ import json
 from queue import Queue
 
 from data import signs
-from level import position_fields as pos, level_actions
+from level import level_actions
+from position import position_actions
 from cell import cell_actions
 
 
@@ -61,10 +62,7 @@ def parse_level_data(level_raw_view):
 
 
 def parse_cell(cell_sign, x, y):
-    position = {
-        pos.X: x,
-        pos.Y: y
-    }
+    position = position_actions.make_position(x, y)
 
     cell_type = signs.get_cell_type_by_sign(cell_sign)
     cell = load_entity_template('cell')

@@ -2,7 +2,8 @@ from cell import cell_types
 from character import character_actions, action_names, entity_types, interactions
 from data import templates, data_loading
 from item import item_fields, item_types
-from level import level_actions, position_fields as pos
+from level import level_actions
+from position import position_actions
 from obstacle import obstacle_fields, obstacle_types
 from player_interaction import display
 
@@ -22,10 +23,7 @@ def create_player_character(input_method, get_action_name):
 
     name = 'Eisenheim'
     entity_type = entity_types.PLAYER
-    position = {
-        pos.X: 1,
-        pos.Y: 3
-    }
+    position = position_actions.make_position(1, 3)
     ring = {
         item_fields.TYPE: item_types.RING,
         item_fields.POSITION: None
@@ -96,10 +94,7 @@ def leave_game(input_method):
 
 
 def add_key_to_level(level_data):
-    position = {
-        pos.X: 1,
-        pos.Y: 2
-    }
+    position = position_actions.make_position(1, 2)
     key_data = {
         item_fields.TYPE: item_types.KEY,
         item_fields.POSITION: position
@@ -109,10 +104,7 @@ def add_key_to_level(level_data):
 
 
 def add_door_to_level(level_data):
-    position = {
-        pos.X: 10,
-        pos.Y: 7
-    }
+    position = position_actions.make_position(10, 7)
     door_data = {
         obstacle_fields.TYPE: obstacle_types.DOOR,
         obstacle_fields.POSITION: position
