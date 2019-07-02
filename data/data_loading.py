@@ -29,10 +29,13 @@ def load_action_sequence(sequence_name):
 
 
 def load_setting(setting_name):
-    setting_path = f'resources/settings/{setting_name}.json'
-    with open(setting_path) as f:
-        setting = json.load(f)
+    return load_json_resource('settings', setting_name)
 
+
+def load_json_resource(resource_type, resource_name):
+    resource_path = f'resources/{resource_type}/{resource_name}.json'
+    with open(resource_path) as f:
+        setting = json.load(f)
     return setting
 
 
@@ -137,11 +140,7 @@ def setup_key_bindings():
 
 
 def load_entity_template(entity_type):
-    template_path = 'resources/entity_templates/{entity_type}_template.json'.format(entity_type=entity_type)
-    with open(template_path) as f:
-        template = json.load(f)
-
-    return template
+    return load_json_resource('entity_templates', entity_type)
 
 
 def get_visitor_sign_for(visitor_type):
