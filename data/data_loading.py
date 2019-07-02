@@ -1,6 +1,7 @@
 import json
 from queue import Queue
 
+from data import signs
 from level import position_fields as pos, level_actions
 from cell import cell_actions
 
@@ -41,24 +42,6 @@ def setup_directions():
     return directions
 
 
-def load_signs(signs_type):
-    return load_json_resource('signs', signs_type)
-
-
-def load_cell_signs():
-    return load_signs('cell')
-
-
-def load_character_signs():
-    return load_signs('character')
-
-
-def get_cell_type_by_sign(cell_sign):
-    for cell_type, sign in load_cell_signs().items():
-        if sign == cell_sign:
-            return cell_type
-
-
 def parse_level_data(level_raw_view):
     level_data = load_entity_template('level')
     level_view = []
@@ -83,38 +66,12 @@ def parse_cell(cell_sign, x, y):
         pos.Y: y
     }
 
-    cell_type = get_cell_type_by_sign(cell_sign)
+    cell_type = signs.get_cell_type_by_sign(cell_sign)
     cell = load_entity_template('cell')
     cell_actions.set_type(cell, cell_type)
     cell_actions.set_position(cell, position)
 
     return cell
-
-
-def get_cell_sign_for(entity_type):
-    signs = load_cell_signs()
-
-    return signs[entity_type]
-
-
-def load_item_signs():
-    return load_signs('item')
-
-
-def get_item_sign_for(item_type):
-    signs = load_item_signs()
-
-    return signs[item_type]
-
-
-def load_obstacle_signs():
-    return load_signs('obstacle')
-
-
-def get_obstacle_sign_for(obstacle_type):
-    signs = load_obstacle_signs()
-
-    return signs[obstacle_type]
 
 
 def setup_key_bindings():
@@ -124,9 +81,3 @@ def setup_key_bindings():
 
 def load_entity_template(entity_type):
     return load_json_resource('entity_templates', entity_type)
-
-
-def get_character_sign_for(character_type):
-    signs = load_character_signs()
-
-    return signs[character_type]

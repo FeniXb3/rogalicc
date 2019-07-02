@@ -2,7 +2,7 @@ from character import character_actions
 from cell import cell_actions
 from item import item_actions
 from level import level_fields
-from data import data_loading
+from data import signs
 from obstacle import obstacle_actions
 
 
@@ -26,13 +26,13 @@ def refresh_view(data, view):
         obstacle = cell_actions.get_obstacle(cell)
         item = cell_actions.get_item(cell)
         if visitor:
-            view[y][x] = data_loading.get_character_sign_for(character_actions.get_type(visitor))
+            view[y][x] = signs.get_character_sign_for(character_actions.get_type(visitor))
         elif obstacle:
-            view[y][x] = data_loading.get_obstacle_sign_for(obstacle_actions.get_type(obstacle))
+            view[y][x] = signs.get_obstacle_sign_for(obstacle_actions.get_type(obstacle))
         elif item:
-            view[y][x] = data_loading.get_item_sign_for(item_actions.get_type(item))
+            view[y][x] = signs.get_item_sign_for(item_actions.get_type(item))
         else:
-            view[y][x] = data_loading.get_cell_sign_for(cell_actions.get_type(cell))
+            view[y][x] = signs.get_cell_sign_for(cell_actions.get_type(cell))
 
     clear_updates(data)
 
