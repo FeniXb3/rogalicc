@@ -3,16 +3,13 @@ from character import character_properties
 from item import item_actions, item_properties
 from level import level_fields
 from data import signs
+from level import level_properties
 from obstacle import obstacle_actions
 
 
 def get_cell_at(level_data, position):
     x, y = position.values()
-    return get_cells(level_data)[y][x]
-
-
-def get_updates(level_data):
-    return level_data[level_fields.UPDATES]
+    return level_properties.get_cells(level_data)[y][x]
 
 
 def clear_updates(level_data):
@@ -20,7 +17,7 @@ def clear_updates(level_data):
 
 
 def refresh_view(data, view):
-    for cell in get_updates(data):
+    for cell in level_properties.get_updates(data):
         x, y = cell_properties.get_position(cell).values()
         visitor = cell_properties.get_visitor(cell)
         obstacle = cell_properties.get_obstacle(cell)
@@ -79,5 +76,3 @@ def remove_obstacle(level_data, obstacle):
     update_obstacle(level_data, position, None)
 
 
-def get_cells(level_data):
-    return level_data[level_fields.CELLS]

@@ -3,7 +3,7 @@ from queue import Queue
 
 from cell import cell_properties
 from data import signs
-from level import level_actions
+from level import level_actions, level_properties
 from position import position_actions
 
 
@@ -49,7 +49,7 @@ def parse_level_data(level_raw_view):
 
     for y, row in enumerate(level_raw_view):
         data_row = []
-        level_actions.get_cells(level_data).append(data_row)
+        level_properties.get_cells(level_data).append(data_row)
         view_row = []
         level_view.append(view_row)
         for x, cell in enumerate(row):
