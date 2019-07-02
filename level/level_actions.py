@@ -5,6 +5,7 @@ from level import level_fields
 from data import signs
 from level import level_properties
 from obstacle import obstacle_actions, obstacle_properties
+from position import position_actions
 
 
 def get_cell_at(level_data, position):
@@ -76,3 +77,17 @@ def remove_obstacle(level_data, obstacle):
     update_obstacle(level_data, position, None)
 
 
+def add_door_to_level_at(level_data, x, y):
+    position = position_actions.make_position(x, y)
+    door = obstacle_actions.create_door()
+    obstacle_properties.set_position(door, position)
+
+    update_obstacle(level_data, position, door)
+
+
+def add_key_to_level_at(level_data, x, y):
+    position = position_actions.make_position(x, y)
+    key_data = item_actions.create_key()
+    item_properties.set_position(key_data, position)
+
+    update_item(level_data, position, key_data)
