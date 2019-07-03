@@ -1,9 +1,12 @@
 import copy
 
 from data import data_loading
-from item import item_properties
-from cell import cell_actions, cell_properties
-from character import character_fields as fields, entity_types, character_properties
+from item import item_properties, item_types
+from cell import cell_actions, cell_properties, cell_types
+from character import character_fields as fields, entity_types, character_properties, interactions
+from level import level_actions
+from obstacle import obstacle_types
+from position import position_actions
 
 
 def move(character, target_position):
@@ -79,7 +82,23 @@ def find_in_inventory(character, item_type):
     return next((item for item in character_properties.get_inventory(character) if item_properties.get_type(item) == item_type), None)
 
 
-def create_player():
+def create_player(get_action_name):
     player = data_loading.load_entity_template("character")
     character_properties.set_type(player, entity_types.PLAYER)
+    character_properties.set_get_action_name(player, get_action_name)
+    add_walkable(player, cell_types.STONE_FLOOR)
+    add_interactable(player, item_types.KEY, interactions.pick_up_item)
+    add_interactable(player, obstacle_types.DOOR, interactions.try_opening_door)
+
     return player
+
+
+def perform_character_frame(character, directions, action_name, level_data):
+    direction = directions[action_name]
+    position = character_properties.get_position(character)
+    target_position = position_actions.calculate_target_position(position, direction)
+    target_cell = level_actions.get_cell_at(level_data, target_position)
+    if can_interact(character, target_cell):
+        interact(character, target_cell, level_data)
+    if can_move(character, target_cell):
+        move(character, target_position)

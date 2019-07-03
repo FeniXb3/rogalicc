@@ -1,11 +1,8 @@
-import character.character_properties
-from cell import cell_types
-from character import character_actions, action_names, interactions
+from character import character_actions, action_names, character_properties
 from data import templates, data_loading
-from item import item_types, item_actions
+from item import item_actions
 from level import level_actions
 from position import position_actions
-from obstacle import obstacle_types
 from player_interaction import display
 
 
@@ -26,13 +23,9 @@ def create_player_character(input_method, get_action_name):
     position = position_actions.make_position(1, 3)
     ring = item_actions.create_ring()
 
-    player = character_actions.create_player()
-    character.character_properties.set_name(player, name)
-    character.character_properties.set_get_action_name(player, get_action_name)
-    character_actions.add_walkable(player, cell_types.STONE_FLOOR)
-    character_actions.add_interactable(player, item_types.KEY, interactions.pick_up_item)
-    character_actions.add_interactable(player, obstacle_types.DOOR, interactions.try_opening_door)
-    character.character_properties.set_position(player, position)
+    player = character_actions.create_player(get_action_name)
+    character_properties.set_name(player, name)
+    character_properties.set_position(player, position)
     character_actions.add_to_inventory(player, ring)
 
     return player
@@ -50,10 +43,10 @@ def start_game(input_method, player):
 
 def perform_frame(input_method, directions, level_data, level_view, player):
     render_updated_game_view(level_data, level_view, player)
-    get_action_name = character.character_properties.get_get_action_name_function(player)
+    get_action_name = character_properties.get_get_action_name_function(player)
     action_name = get_action_name()
     if action_name in directions:
-        perform_character_frame(directions, action_name, level_data, player)
+        character_actions.perform_character_frame(player, directions, action_name, level_data)
     elif action_name == action_names.QUIT:
         leave_game(input_method)
 
@@ -70,18 +63,7 @@ def render_updated_game_view(level_data, level_view, player):
     level_actions.place_character(player, level_data)
     level_actions.refresh_view(level_data, level_view)
     show_level(level_view)
-    show_inventory(character.character_properties.get_inventory(player))
-
-
-def perform_character_frame(directions, key, level_data, player):
-    direction = directions[key]
-    position = character.character_properties.get_position(player)
-    target_position = position_actions.calculate_target_position(position, direction)
-    target_cell = level_actions.get_cell_at(level_data, target_position)
-    if character_actions.can_interact(player, target_cell):
-        character_actions.interact(player, target_cell, level_data)
-    if character_actions.can_move(player, target_cell):
-        character_actions.move(player, target_position)
+    show_inventory(character_properties.get_inventory(player))
 
 
 def leave_game(input_method):
