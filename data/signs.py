@@ -1,3 +1,4 @@
+from cell import cell_types
 from data import data_loading
 
 
@@ -9,10 +10,16 @@ def load_character_signs():
     return load_signs('character')
 
 
+def get_default_cell_type():
+    return cell_types.STONE_FLOOR
+
+
 def get_cell_type_by_sign(cell_sign):
     for cell_type, sign in load_cell_signs().items():
         if sign == cell_sign:
             return cell_type
+
+    return get_default_cell_type()
 
 
 def get_cell_sign_for(entity_type):
