@@ -4,7 +4,7 @@ from item import item_actions, item_properties
 from level import level_fields
 from data import signs
 from level import level_properties
-from obstacle import obstacle_actions, obstacle_properties
+from obstacle import obstacle_actions, obstacle_properties, walkable_checks
 from position import position_actions
 
 
@@ -77,10 +77,12 @@ def remove_obstacle(level_data, obstacle):
     update_obstacle(level_data, position, None)
 
 
-def add_door_to_level_at(level_data, x, y):
+def add_door_to_level_at(level_data, x, y, is_locked=False):
     position = position_actions.make_position(x, y)
     door = obstacle_actions.create_door()
     obstacle_properties.set_position(door, position)
+    obstacle_properties.set_is_locked(door, is_locked)
+    obstacle_properties.set_is_walkable_action(door, walkable_checks.is_unlocked)
 
     update_obstacle(level_data, position, door)
 

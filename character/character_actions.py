@@ -5,7 +5,7 @@ from item import item_properties, item_types
 from cell import cell_actions, cell_properties, cell_types
 from character import character_fields as fields, entity_types, character_properties, interactions
 from level import level_actions
-from obstacle import obstacle_types
+from obstacle import obstacle_types, obstacle_properties
 from position import position_actions
 
 
@@ -17,7 +17,9 @@ def move(character, target_position):
 def can_move(character, target_cell):
     obstacle = cell_properties.get_obstacle(target_cell)
     if obstacle:
-        return False
+        is_obstacle_walkable_action = obstacle_properties.get_is_walkable_action(obstacle)
+        if not is_obstacle_walkable_action(obstacle):
+            return False
 
     return is_walkable(character, target_cell)
 

@@ -11,5 +11,3 @@ def create_door():
     door = data_loading.load_entity_template('obstacle')
     obstacle_properties.set_type(door, obstacle_types.DOOR)
     return door
-
-

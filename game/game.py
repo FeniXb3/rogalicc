@@ -55,7 +55,9 @@ def setup_level():
     level_raw_view = data_loading.load_level()
     level_data, level_view = data_loading.parse_level_data(level_raw_view)
     level_actions.add_key_to_level_at(level_data, 1, 2)
-    level_actions.add_door_to_level_at(level_data, 10, 7)
+    level_actions.add_door_to_level_at(level_data, 10, 7, True)
+    level_actions.add_door_to_level_at(level_data, 9, 6)
+    level_actions.add_door_to_level_at(level_data, 1, 6)
     return level_data, level_view
 
 
