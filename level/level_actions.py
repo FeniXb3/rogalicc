@@ -93,3 +93,12 @@ def add_key_to_level_at(level_data, x, y):
     item_properties.set_position(key_data, position)
 
     update_item(level_data, position, key_data)
+
+
+def add_wall_to_level_at(level_data, x, y):
+    position = position_actions.make_position(x, y)
+    wall = obstacle_actions.create_wall()
+    obstacle_properties.set_position(wall, position)
+    obstacle_properties.set_is_walkable_action(wall, walkable_checks.is_not_wall)
+
+    update_obstacle(level_data, position, wall)

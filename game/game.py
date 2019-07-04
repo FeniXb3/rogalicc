@@ -58,6 +58,7 @@ def setup_level():
     level_actions.add_door_to_level_at(level_data, 10, 7, True)
     level_actions.add_door_to_level_at(level_data, 9, 6)
     level_actions.add_door_to_level_at(level_data, 1, 6)
+    level_actions.add_wall_to_level_at(level_data, 2, 5)
     return level_data, level_view
 
 
