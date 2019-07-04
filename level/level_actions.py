@@ -2,9 +2,9 @@ from cell import cell_properties
 from character import character_properties
 from item import item_actions, item_properties
 from level import level_fields
-from data import signs
+from data import signs, data_loading
 from level import level_properties
-from obstacle import obstacle_actions, obstacle_properties
+from obstacle import obstacle_actions, obstacle_properties, obstacle_types
 from position import position_actions
 
 
@@ -100,3 +100,18 @@ def add_wall_to_level_at(level_data, x, y):
     obstacle_properties.set_position(wall, position)
 
     update_obstacle(level_data, position, wall)
+
+
+def get_adding_function_for(level_data, entity_type):
+    return level_properties.get_adding_functions(level_data)[entity_type]
+
+
+def add_adding_function(level_data, addable_type, adding_function):
+    level_properties.get_adding_functions(level_data)[addable_type] = adding_function
+
+
+def create_level():
+    level_data = data_loading.load_entity_template('level')
+    add_adding_function(level_data, obstacle_types.WALL, add_wall_to_level_at)
+
+    return level_data

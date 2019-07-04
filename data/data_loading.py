@@ -45,7 +45,7 @@ def setup_directions():
 
 
 def parse_level_data(level_raw_view):
-    level_data = load_entity_template('level')
+    level_data = level_actions.create_level()
     level_view = []
 
     for y, row in enumerate(level_raw_view):
@@ -57,8 +57,9 @@ def parse_level_data(level_raw_view):
             cell = parse_cell(sign, x, y)
             data_row.append(cell)
             obstacle_type = signs.get_obstacle_type_by_sign(sign)
-            if obstacle_type == obstacle_types.WALL:
-                level_actions.add_wall_to_level_at(level_data, x, y)
+            if obstacle_type:
+                obstacle_adding_function = level_actions.get_adding_function_for(level_data, obstacle_type)
+                obstacle_adding_function(level_data, x, y)
 
             view_row.append(None)
             level_actions.queue_cell_update(level_data, cell)
