@@ -4,6 +4,7 @@ from queue import Queue
 from cell import cell_properties
 from data import signs
 from level import level_actions, level_properties
+from obstacle import obstacle_types
 from position import position_actions
 
 
@@ -55,6 +56,10 @@ def parse_level_data(level_raw_view):
         for x, sign in enumerate(row):
             cell = parse_cell(sign, x, y)
             data_row.append(cell)
+            obstacle_type = signs.get_obstacle_type_by_sign(sign)
+            if obstacle_type == obstacle_types.WALL:
+                level_actions.add_wall_to_level_at(level_data, x, y)
+
             view_row.append(None)
             level_actions.queue_cell_update(level_data, cell)
 
