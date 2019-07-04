@@ -117,3 +117,7 @@ def create_level():
     add_adding_function(level_data, item_types.KEY, add_key_to_level_at)
 
     return level_data
+
+
+def add_locked_door_to_level_at(level_data, x, y):
+    add_door_to_level_at(level_data, x, y, True)

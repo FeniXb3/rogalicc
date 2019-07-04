@@ -54,7 +54,7 @@ def perform_frame(input_method, directions, level_data, level_view, player):
 def setup_level():
     level_raw_view = data_loading.load_level()
     level_data, level_view = data_loading.parse_level_data(level_raw_view)
-    level_actions.add_door_to_level_at(level_data, 10, 7, True)
+    level_actions.add_locked_door_to_level_at(level_data, 10, 7)
     return level_data, level_view
 
 
