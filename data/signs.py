@@ -62,3 +62,9 @@ def get_obstacle_type_by_sign(obstacle_sign):
     for obstacle_type, sign in load_obstacle_signs().items():
         if sign == obstacle_sign:
             return obstacle_type
+
+
+def get_item_type_by_sign(item_sign):
+    for item_type, sign in load_item_signs().items():
+        if sign == item_sign:
+            return item_type

@@ -1,6 +1,6 @@
 from cell import cell_properties
 from character import character_properties
-from item import item_actions, item_properties
+from item import item_actions, item_properties, item_types
 from level import level_fields
 from data import signs, data_loading
 from level import level_properties
@@ -114,5 +114,6 @@ def create_level():
     level_data = data_loading.load_entity_template('level')
     add_adding_function(level_data, obstacle_types.WALL, add_wall_to_level_at)
     add_adding_function(level_data, obstacle_types.DOOR, add_door_to_level_at)
+    add_adding_function(level_data, item_types.KEY, add_key_to_level_at)
 
     return level_data
