@@ -52,11 +52,11 @@ def parse_level_data(level_raw_view):
         level_properties.get_cells(level_data).append(data_row)
         view_row = []
         level_view.append(view_row)
-        for x, cell in enumerate(row):
-            cell_data = parse_cell(cell, x, y)
-            data_row.append(cell_data)
+        for x, sign in enumerate(row):
+            cell = parse_cell(sign, x, y)
+            data_row.append(cell)
             view_row.append(None)
-            level_actions.queue_cell_update(level_data, cell_data)
+            level_actions.queue_cell_update(level_data, cell)
 
     return level_data, level_view
 
