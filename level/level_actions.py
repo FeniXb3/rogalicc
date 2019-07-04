@@ -113,5 +113,6 @@ def add_adding_function(level_data, addable_type, adding_function):
 def create_level():
     level_data = data_loading.load_entity_template('level')
     add_adding_function(level_data, obstacle_types.WALL, add_wall_to_level_at)
+    add_adding_function(level_data, obstacle_types.DOOR, add_door_to_level_at)
 
     return level_data
