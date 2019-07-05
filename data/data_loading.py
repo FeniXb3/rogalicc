@@ -56,7 +56,7 @@ def parse_level_data(level_raw_view):
         for x, sign in enumerate(row):
             cell = parse_cell(sign, x, y)
             data_row.append(cell)
-            obstacle_type = signs.get_obstacle_type_by_sign(sign)
+            obstacle_type = signs.get_obstacle_parse_type_by_sign(sign)
             item_type = signs.get_item_type_by_sign(sign)
             if obstacle_type:
                 obstacle_adding_function = level_actions.get_adding_function_for(level_data, obstacle_type)

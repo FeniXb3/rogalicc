@@ -58,7 +58,7 @@ def load_signs(signs_type):
     return data_loading.load_json_resource('signs', signs_type)
 
 
-def get_obstacle_type_by_sign(obstacle_sign):
+def get_obstacle_parse_type_by_sign(obstacle_sign):
     for obstacle_type, sign in load_obstacle_signs().items():
         if sign == obstacle_sign:
             return obstacle_type
