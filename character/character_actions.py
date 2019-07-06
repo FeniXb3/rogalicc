@@ -54,7 +54,12 @@ def can_interact_with_field(character, get_action, cell):
 
 
 def is_interactable(character, data):
-    return item_properties.get_type(data) in character_properties.get_interactables(character)
+    if not item_properties.get_type(data) in character_properties.get_interactables(character):
+        return False
+
+    interaction_condition = get_interaction_condition(character, item_properties.get_type(data))
+
+    return interaction_condition(character, data)
 
 
 def interact(character, target_cell, level_data):
@@ -71,9 +76,15 @@ def get_interaction_function(character, element_type):
     return interactable_properties.get_interaction(interactable)
 
 
-def add_interactable(character, interactable_type, interaction):
+def get_interaction_condition(character, element_type):
     interactables = character_properties.get_interactables(character)
-    interactables[interactable_type] = interactable_actions.create_interactable(interaction)
+    interactable = interactables[element_type]
+    return interactable_properties.get_condition(interactable)
+
+
+def add_interactable(character, interactable_type, interaction, condition=None):
+    interactables = character_properties.get_interactables(character)
+    interactables[interactable_type] = interactable_actions.create_interactable(interaction, condition)
 
 
 def add_walkable(character, cell_type):

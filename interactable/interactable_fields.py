@@ -1,1 +1,2 @@
 INTERACTION = "interaction"
+CONDITION = "condition"
