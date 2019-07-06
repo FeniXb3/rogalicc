@@ -1,6 +1,7 @@
 import copy
 
 from data import data_loading
+from interactable import interactable_actions, interactable_properties
 from item import item_properties, item_types
 from cell import cell_actions, cell_properties, cell_types
 from character import character_fields as fields, entity_types, character_properties, interactions
@@ -65,11 +66,14 @@ def interact(character, target_cell, level_data):
 
 
 def get_interaction_function(character, element_type):
-    return character_properties.get_interactables(character)[element_type]
+    interactables = character_properties.get_interactables(character)
+    interactable = interactables[element_type]
+    return interactable_properties.get_interaction(interactable)
 
 
 def add_interactable(character, interactable_type, interaction):
-    character_properties.get_interactables(character)[interactable_type] = interaction
+    interactables = character_properties.get_interactables(character)
+    interactables[interactable_type] = interactable_actions.create_interactable(interaction)
 
 
 def add_walkable(character, cell_type):
