@@ -47,6 +47,9 @@ def perform_frame(input_method, directions, level_data, level_view, player):
     action_name = get_action_name()
     if action_name in directions:
         character_actions.perform_character_frame(player, directions, action_name, level_data)
+    elif action_name == action_names.INTERACT:
+        target_cell = level_actions.get_cell_at(level_data, character_properties.get_position(player))
+        character_actions.try_interacting(player, level_data, target_cell)
     elif action_name == action_names.QUIT:
         leave_game(input_method)
 

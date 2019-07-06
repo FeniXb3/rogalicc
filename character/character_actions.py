@@ -95,12 +95,17 @@ def create_player(get_action_name):
     return player
 
 
+def try_interacting(character, level_data, target_cell):
+    if can_interact(character, target_cell):
+        interact(character, target_cell, level_data)
+
+
 def perform_character_frame(character, directions, action_name, level_data):
     direction = directions[action_name]
     position = character_properties.get_position(character)
     target_position = position_actions.calculate_target_position(position, direction)
     target_cell = level_actions.get_cell_at(level_data, target_position)
-    if can_interact(character, target_cell):
-        interact(character, target_cell, level_data)
+
+    try_interacting(character, level_data, target_cell)
     if can_move(character, target_cell):
         move(character, target_position)

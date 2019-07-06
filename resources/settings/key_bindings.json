@@ -3,5 +3,6 @@
     "s": "DOWN",
     "a": "LEFT",
     "d": "RIGHT",
-    "q": "QUIT"
+    "q": "QUIT",
+    "i": "INTERACT"
 }
