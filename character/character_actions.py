@@ -4,7 +4,8 @@ from data import data_loading
 from interactable import interactable_actions, interactable_properties
 from item import item_properties, item_types
 from cell import cell_actions, cell_properties, cell_types
-from character import character_fields as fields, entity_types, character_properties, interactions
+from character import character_fields as fields, entity_types, character_properties, interactions, \
+    interaction_conditions
 from level import level_actions
 from obstacle import obstacle_types, obstacle_properties
 from position import position_actions
@@ -104,7 +105,7 @@ def create_player(get_action_name):
     character_properties.set_type(player, entity_types.PLAYER)
     character_properties.set_get_action_name(player, get_action_name)
     add_walkable(player, cell_types.STONE_FLOOR)
-    add_interactable(player, item_types.KEY, interactions.pick_up_item)
+    add_interactable(player, item_types.KEY, interactions.pick_up_item, interaction_conditions.is_the_same_cell)
     add_interactable(player, obstacle_types.DOOR, interactions.try_opening_door)
 
     return player

@@ -16,3 +16,7 @@ def create_key():
     key = data_loading.load_entity_template('item')
     item_properties.set_type(key, item_types.KEY)
     return key
+
+
+def get_position(item):
+    return item[item_fields.POSITION]
