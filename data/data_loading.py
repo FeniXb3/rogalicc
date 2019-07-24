@@ -56,19 +56,27 @@ def parse_level_data(level_raw_view):
         for x, sign in enumerate(row):
             cell = parse_cell(sign, x, y)
             data_row.append(cell)
-            obstacle_type = signs.get_obstacle_parse_type_by_sign(sign)
-            item_type = signs.get_item_type_by_sign(sign)
-            if obstacle_type:
-                obstacle_adding_function = level_actions.get_adding_function_for(level_data, obstacle_type)
-                obstacle_adding_function(level_data, x, y)
-            if item_type:
-                item_adding_function = level_actions.get_adding_function_for(level_data, item_type)
-                item_adding_function(level_data, x, y)
+            try_parsing_obstacle(level_data, sign, x, y)
+            try_parsing_item(level_data, sign, x, y)
 
             view_row.append(None)
             level_actions.queue_cell_update(level_data, cell)
 
     return level_data, level_view
+
+
+def try_parsing_obstacle(level_data, sign, x, y):
+    obstacle_type = signs.get_obstacle_parse_type_by_sign(sign)
+    if obstacle_type:
+        obstacle_adding_function = level_actions.get_adding_function_for(level_data, obstacle_type)
+        obstacle_adding_function(level_data, x, y)
+
+
+def try_parsing_item(level_data, sign, x, y):
+    item_type = signs.get_item_type_by_sign(sign)
+    if item_type:
+        item_adding_function = level_actions.get_adding_function_for(level_data, item_type)
+        item_adding_function(level_data, x, y)
 
 
 def parse_cell(cell_sign, x, y):
